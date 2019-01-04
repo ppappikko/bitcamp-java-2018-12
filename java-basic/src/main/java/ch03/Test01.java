@@ -1,4 +1,4 @@
-// 변수 선언
+// 변수 선언과 메모리 크기
 package ch03;
 
 public class Test01 {
@@ -53,6 +53,10 @@ public class Test01 {
     System.out.println(f1);
     System.out.println(f2);
     
+    f1 = 9876.543f;
+    f2 = 12.34567f;
+    System.out.println(f1);
+    System.out.println(f2);
     
     // 8바이트 부동소수점 값을 담을 메모리 준비
     double d1;
@@ -86,6 +90,7 @@ public class Test01 {
     System.out.println(c1);  // 변수 자체가 char이기 때문에 (char)를 붙이지 않아도 된다.
     System.out.println(c2);
     System.out.println(c3);
+    
   }
 
 }

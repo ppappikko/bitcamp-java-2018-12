@@ -5,19 +5,42 @@ package bitcamp.lms;
 
 public class App {
   public static void main(String[] args) {
-    System.out.println("번호: " + 1);  // 문자열 리터럴과 숫자 리터럴 합치기
-    System.out.println("수업명: 자바 프로젝트 실습");  // 문자열 리터럴 출력
-    System.out.println("설명: " + "자바 프로젝트를 통한 자바 언어 활용법 익히기");  // 문자열 연결
-    System.out.print("시작일: "); // 줄바꿈 없이 출력
-    System.out.println("2019-01-02");
-    System.out.print("종료일: ");
-    System.out.print("2019-05-28\n");  // 문자열 속에 줄바꿈 명령 넣기
-    System.out.print("총수업시간: ");
-    System.out.print(1000);
-    System.out.print(" 시간");
-    System.out.println();  // args 없이 호출하면 줄바꿈 명령만 실행 된다.
+    // 키보드 입력 장치 선언
+    java.util.Scanner keyboard = new java.util.Scanner(System.in);
     
-    // 문자열의 형식을 정의해 두고 값을 넣어 출력하기
-    System.out.printf("일수업시간: %d 시간\n", 8);
+    // 입력 받을 내용
+    System.out.print("번호? ");
+    int num = keyboard.nextInt();
+    
+    String tmp = keyboard.nextLine();  // LF값을 제거?
+    
+    System.out.print("수업명? ");
+    String className = keyboard.nextLine();
+    
+    System.out.print("수업내용? ");
+    String classContents = keyboard.nextLine();
+    
+    System.out.print("시작일? ");
+    String startDate = keyboard.nextLine();
+    
+    System.out.print("종료일? ");
+    String endDate = keyboard.nextLine();
+    
+    System.out.print("총수업시간? ");
+    int totalTime = keyboard.nextInt();
+    
+    System.out.print("일수업시간? ");
+    int dayTime = keyboard.nextInt();
+    
+    System.out.println();  // 빈 줄 출력
+    
+    // 출력할 내용
+    System.out.printf("번호: %d\n", num);
+    System.out.printf("수업명: %s\n", className);
+    System.out.printf("수업내용: %s\n", classContents);
+    System.out.printf("기간: %s ~ %s\n", startDate, endDate);
+    System.out.printf("총수업시간: %d 시간\n", totalTime);
+    System.out.printf("일수업시간: %d 시간\n", dayTime);
+    
   }
 }

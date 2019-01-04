@@ -5,16 +5,35 @@ package bitcamp.lms;
 
 public class App3 {
   public static void main(String[] args) {
-    // 기본 출력
-    System.out.println("번호: " + 1);
-    System.out.println("내용: 게시글입니다.");
-    System.out.println("작성일: 2019-01-01");
-    System.out.println("조회수: " + 0);
+    // 키보드 입력 장치 선언
+    java.util.Scanner keyboard = new java.util.Scanner(System.in);
     
-    // 문자열 형식을 정의하고 값을 대입해서 출력
-    System.out.printf("번호: %d\n", 1);
-    System.out.printf("내용: %s\n", "게시글입니다.");
-    System.out.printf("작성일: %s\n", "2019-01-01");
-    System.out.printf("조회수: %d\n", 1);
+    // 입력 받을 내용
+    System.out.print("번호? ");
+    int num = keyboard.nextInt();
+    
+    String tmp = keyboard.nextLine();  // LF값을 제거?
+    
+    System.out.print("내용? ");
+    String contents = keyboard.nextLine();
+    
+    // 현재 가입 날짜 생성
+    java.util.Date today = new java.util.Date();
+    
+    // 조회수 변수 선언 및 초기화
+    int clicks = 0;
+    
+    System.out.println();  // 빈 줄 출력
+    
+    // 출력할 내용
+    System.out.printf("번호: %d\n", num);
+    System.out.printf("내용: %s\n", contents);
+    
+    // 작성일 날짜 출력
+    System.out.printf("작성일: %1$tY-%1$tm-%1$td\n", today);
+    
+    // 조회수 출력
+    System.out.printf("조회수: %d\n", clicks);
+    
   }
 }
