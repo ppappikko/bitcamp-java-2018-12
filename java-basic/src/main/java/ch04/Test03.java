@@ -80,3 +80,25 @@ public class Test03 {
   }
 }
 
+/*
+# 암시적 형변환의 규칙
+- 서로 다른 타입과 연산을 수행한다면 다음 규칙에 따라 오른쪽 타입으로 자동 형변환을 수행한다.
+- byte,short(-32768~32767),char(0~65535) => int => long => float => double 
+
+예1) byte + short + char - float + long + int + double
+  =>(int) + (int) : int 임시 메모리가 생성되고 byte 값이 저장된다.
+    주의! byte, short, char를 연산할 때는 무조건 int로 형변환 한 다음에 수행한다.
+    자바의 최소 연산 단위는 int이다.
+  =>    (int)    +  char
+  =>    (int)    + (int) 
+  =>          (int)     - float
+  =>          (float)   - float
+  =>                 (float)  + long
+  =>                 (float)  + (float)
+  =>                        (float)   + int
+  =>                        (float)   + (float)
+  =>                                (float)  + double
+  =>                                (double) + double
+  =>                                       double
+ */
+
