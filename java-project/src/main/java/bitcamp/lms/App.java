@@ -5,14 +5,15 @@ package bitcamp.lms;
 
 public class App {
   public static void main(String[] args) {
-    // 키보드 입력 장치 선언
+    // 키보드 입력 스트림 (System.in)을 스캐너 객체에 연결한다.
+    // => 스캐너는 입력 스트림으로 들어온 문자열을 줄 단위로 잘라주는 역할을 수행한다.
     java.util.Scanner keyboard = new java.util.Scanner(System.in);
     
     // 입력 받을 내용
     System.out.print("번호? ");
     int num = keyboard.nextInt();
     
-    String tmp = keyboard.nextLine();  // LF값을 제거?
+    keyboard.nextLine();  // LF값을 제거?
     
     System.out.print("수업명? ");
     String className = keyboard.nextLine();
@@ -31,6 +32,8 @@ public class App {
     
     System.out.print("일수업시간? ");
     int dayTime = keyboard.nextInt();
+    
+    keyboard.close();
     
     System.out.println();  // 빈 줄 출력
     

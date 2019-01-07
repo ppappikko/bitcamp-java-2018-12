@@ -12,13 +12,14 @@ public class App3 {
     System.out.print("번호? ");
     int num = keyboard.nextInt();
     
-    String tmp = keyboard.nextLine();  // LF값을 제거?
+    keyboard.nextLine();  // LF값을 제거?
     
     System.out.print("내용? ");
     String contents = keyboard.nextLine();
     
     // 현재 가입 날짜 생성
     java.util.Date today = new java.util.Date();
+    // java.sql.Date registeredDate = new java.sql.Date(System.currentTimeMillis());
     
     // 조회수 변수 선언 및 초기화
     int clicks = 0;
