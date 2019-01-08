@@ -60,7 +60,7 @@ public class App2 {
     // 출력할 내용
     int i = 0;
     while (i < length) {
-      System.out.printf("%3d, %-4s, %-20s, %-15s, %s\n", 
+      System.out.printf("%3d, %-10s, %-20s, %-15s, %s\n", 
           nums[i], names[i], emails[i], phoneNums[i], today[i]);
       i++;
     }

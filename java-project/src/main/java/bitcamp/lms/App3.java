@@ -40,12 +40,14 @@ public class App3 {
         break;
       }
     }
+    keyboard.close();
     System.out.println(); // 공백 출력
     
     // 출력할 내용
     i = 0; // 배열의 index값 0으로 초기화
     while (i < length) {
-      System.out.printf("%d, %-20s, %s, %d\n", nums[i], contents[i], createdDate[i], count[i]);
+      System.out.printf("%d, %-20s, %s, %d\n", 
+          nums[i], contents[i], createdDate[i], count[i]);
       i++;
     }
     
