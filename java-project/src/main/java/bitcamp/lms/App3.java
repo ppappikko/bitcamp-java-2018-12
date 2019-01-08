@@ -3,38 +3,52 @@
  */
 package bitcamp.lms;
 
+import java.sql.Date;
+import java.util.Scanner;
+
 public class App3 {
   public static void main(String[] args) {
-    // 키보드 입력 장치 선언
-    java.util.Scanner keyboard = new java.util.Scanner(System.in);
+    Scanner keyboard = new Scanner(System.in);
     
-    // 입력 받을 내용
-    System.out.print("번호? ");
-    int num = keyboard.nextInt();
+    final int length = 10; // 배열 크기
+    int[] nums = new int[length];
+    String[] contents = new String[length];
+    Date[] createdDate = new Date[length];
+    int[] count = new int[length];
     
-    keyboard.nextLine();  // LF값을 제거?
-    
-    System.out.print("내용? ");
-    String contents = keyboard.nextLine();
-    
-    // 현재 가입 날짜 생성
-    java.util.Date today = new java.util.Date();
-    // java.sql.Date registeredDate = new java.sql.Date(System.currentTimeMillis());
-    
-    // 조회수 변수 선언 및 초기화
-    int clicks = 0;
-    
-    System.out.println();  // 빈 줄 출력
+    // 입력할 내용
+    int i = 0; // 배열의 index값 0 초기화
+    while (i < length) {
+      System.out.print("번호? ");
+      nums[i] = Integer.parseInt(keyboard.nextLine());
+      
+      System.out.print("내용? ");
+      contents[i] = keyboard.nextLine();
+      
+      // 생성 날짜 자동 입력
+      createdDate[i] = new Date(System.currentTimeMillis());
+      
+      // 조회수 초기화
+      count[i] = 0;
+      
+      i++; // index 값 증가
+      
+      // 계속 진행할 것인가?
+      System.out.println("계속 입력 하시겠습니까?(Y/n) ");
+      String answer = keyboard.nextLine();
+      if (!answer.equalsIgnoreCase("y") && !answer.equalsIgnoreCase("")) {
+        break;
+      }
+    }
+    System.out.println(); // 공백 출력
     
     // 출력할 내용
-    System.out.printf("번호: %d\n", num);
-    System.out.printf("내용: %s\n", contents);
+    i = 0; // 배열의 index값 0으로 초기화
+    while (i < length) {
+      System.out.printf("%d, %-20s, %s, %d\n", nums[i], contents[i], createdDate[i], count[i]);
+      i++;
+    }
     
-    // 작성일 날짜 출력
-    System.out.printf("작성일: %1$tY-%1$tm-%1$td\n", today);
-    
-    // 조회수 출력
-    System.out.printf("조회수: %d\n", clicks);
     
   }
 }
