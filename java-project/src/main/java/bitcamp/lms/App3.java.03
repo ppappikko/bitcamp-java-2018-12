@@ -1,0 +1,50 @@
+// 3단계 : 배열 적용
+package bitcamp.lms;
+
+import java.sql.Date;
+import java.util.Scanner;
+
+public class App3 {
+
+  public static void main(String[] args) {
+    Scanner keyboard = new Scanner(System.in);
+
+    int length = 100;
+    int[] no = new int[length];
+    String[] contents = new String[length];
+    Date[] createdDate = new Date[length];
+    int[] viewCount = new int[length];
+
+    int index = 0;
+
+    while (index < length) {
+      System.out.print("번호? ");
+      no[index] = Integer.parseInt(keyboard.nextLine());
+
+      System.out.print("내용? ");
+      contents[index] = keyboard.nextLine();
+
+      createdDate[index] = new Date(System.currentTimeMillis()); 
+
+      viewCount[index] = 0;
+
+      index++;
+
+      System.out.print("\n계속 입력하시겠습니까?(Y/n) ");
+      String input = keyboard.nextLine();
+      System.out.println();
+
+      if (!input.equalsIgnoreCase("y") && !input.equalsIgnoreCase(""))
+        break;
+    }
+    // 사용후 스캐너 객체의 자원을 해제한다.
+    keyboard.close();
+
+    System.out.println(); // 빈 줄 출력
+
+    for (int i = 0; i < index; i++) {
+      System.out.printf("%3d, %-30s, %s, %d\n", 
+          no[i], contents[i], createdDate[i], viewCount[i]);
+    }
+  }
+}
