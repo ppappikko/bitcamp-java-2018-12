@@ -9,31 +9,38 @@ public class App2 {
   public static void main(String[] args) {
 
     Scanner keyboard = new Scanner(System.in);
-    final int length = 10;
-    Member[] member = new Member[length];
-    
+
+    final int length = 100;
+
+    int[] no = new int[length];
+    String[] name = new String[length];
+    String[] email = new String[length];
+    String[] password = new String[length];
+    String[] photo = new String[length];
+    String[] tel = new String[length];
+    Date[] registeredDate = new Date[length];
+
     int index = 0;
     while (index < length) {
-      member[index] = new Member();
       System.out.print("번호? ");
-      member[index].num = Integer.parseInt(keyboard.nextLine());
+      no[index] = Integer.parseInt(keyboard.nextLine());
 
       System.out.print("이름? ");
-      member[index].name = keyboard.nextLine();
+      name[index] = keyboard.nextLine();
 
       System.out.print("이메일? ");
-      member[index].email = keyboard.nextLine();
+      email[index] = keyboard.nextLine();
 
       System.out.print("암호? ");
-      member[index].password = keyboard.nextLine();
+      password[index] = keyboard.nextLine();
 
       System.out.print("사진? ");
-      member[index].photo = keyboard.nextLine();
+      photo[index] = keyboard.nextLine();
 
       System.out.print("전화? ");
-      member[index].tel = keyboard.nextLine();
+      tel[index] = keyboard.nextLine();
 
-      member[index].registeredDate = new Date(System.currentTimeMillis()); 
+      registeredDate[index] = new Date(System.currentTimeMillis()); 
 
       System.out.println();
       index++;
@@ -53,8 +60,7 @@ public class App2 {
 
     for (int i = 0; i < index; i++) {
       System.out.printf("%3d, %-20s, %-30s, %-10s, %-20s, %s, %s\n", 
-          member[i].num, member[i].name, member[i].email, member[i].password, 
-          member[i].photo, member[i].tel, member[i].registeredDate);
+          no[i], name[i], email[i], password[i], photo[i], tel[i], registeredDate[i]);
     }
   }
 }

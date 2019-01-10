@@ -11,23 +11,25 @@ public class App3 {
     Scanner keyboard = new Scanner(System.in);
 
     final int length = 10; // 배열 크기
-    Board[] board = new Board[length];
-    
+    int[] nums = new int[length];
+    String[] contents = new String[length];
+    Date[] createdDate = new Date[length];
+    int[] count = new int[length];
+
     // 입력할 내용
     int i = 0; // 배열의 index값 0 초기화
     while (i < length) {
-      board[i] = new Board();
       System.out.print("번호? ");
-      board[i].num = Integer.parseInt(keyboard.nextLine());
+      nums[i] = Integer.parseInt(keyboard.nextLine());
 
       System.out.print("내용? ");
-      board[i].content = keyboard.nextLine();
+      contents[i] = keyboard.nextLine();
 
       // 생성 날짜 자동 입력
-      board[i].createdDate = new Date(System.currentTimeMillis());
+      createdDate[i] = new Date(System.currentTimeMillis());
 
       // 조회수 초기화
-      board[i].count = 0;
+      count[i] = 0;
 
       i++; // index 값 증가
 
@@ -45,7 +47,7 @@ public class App3 {
     i = 0; // 배열의 index값 0으로 초기화
     while (i < length) {
       System.out.printf("%d, %-20s, %s, %d\n", 
-          board[i].num, board[i].content, board[i].createdDate, board[i].count);
+          nums[i], contents[i], createdDate[i], count[i]);
       i++;
     }
 
