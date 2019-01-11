@@ -10,32 +10,34 @@ public class App2 {
 
     Scanner keyboard = new Scanner(System.in);
     final int length = 10;
-    Member[] member = new Member[length];
+    Member[] members = new Member[length];
     
     int index = 0;
     while (index < length) {
-      member[index] = new Member();
+      Member member = new Member();
       System.out.print("번호? ");
-      member[index].num = Integer.parseInt(keyboard.nextLine());
+      member.num = Integer.parseInt(keyboard.nextLine());
 
       System.out.print("이름? ");
-      member[index].name = keyboard.nextLine();
+      member.name = keyboard.nextLine();
 
       System.out.print("이메일? ");
-      member[index].email = keyboard.nextLine();
+      member.email = keyboard.nextLine();
 
       System.out.print("암호? ");
-      member[index].password = keyboard.nextLine();
+      member.password = keyboard.nextLine();
 
       System.out.print("사진? ");
-      member[index].photo = keyboard.nextLine();
+      member.photo = keyboard.nextLine();
 
       System.out.print("전화? ");
-      member[index].tel = keyboard.nextLine();
+      member.tel = keyboard.nextLine();
 
-      member[index].registeredDate = new Date(System.currentTimeMillis()); 
+      member.registeredDate = new Date(System.currentTimeMillis()); 
 
       System.out.println();
+      
+      members[index] = member;
       index++;
 
       // 계속 진행할 것인가?
@@ -53,8 +55,8 @@ public class App2 {
 
     for (int i = 0; i < index; i++) {
       System.out.printf("%3d, %-20s, %-30s, %-10s, %-20s, %s, %s\n", 
-          member[i].num, member[i].name, member[i].email, member[i].password, 
-          member[i].photo, member[i].tel, member[i].registeredDate);
+          members[i].num, members[i].name, members[i].email, members[i].password, 
+          members[i].photo, members[i].tel, members[i].registeredDate);
     }
   }
 }
