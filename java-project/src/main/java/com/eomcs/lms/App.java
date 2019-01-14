@@ -11,30 +11,38 @@ public class App {
 
   public static void main(String[] args) {
 
-    LessonHandler.keyboard = keyboard;
-    MemberHandler.keyboard = keyboard;
-    BoardHandler.keyboard = keyboard;
+    // keyboard를 파라미터 값으로 받는 생성자를 사용!
+    LessonHandler lessonHandler1 = new LessonHandler(keyboard);
+    MemberHandler memberHandler1 = new MemberHandler(keyboard);
+    BoardHandler boardHandler1 = new BoardHandler(keyboard);
+    BoardHandler boardHandler2 = new BoardHandler(keyboard);
 
     while (true) {
       String command = prompt();
 
       if (command.equals("/lesson/add")) {
-        LessonHandler.addLesson();
+        lessonHandler1.addLesson();
 
       } else if (command.equals("/lesson/list")) {
-        LessonHandler.listLesson();
+        lessonHandler1.listLesson();
 
       } else if (command.equals("/member/add")) {
-        MemberHandler.addMember();
+        memberHandler1.addMember();
 
       } else if (command.equals("/member/list")) {
-        MemberHandler.listMember();
+        memberHandler1.listMember();
 
       } else if (command.equals("/board/add")) {
-        BoardHandler.addBoard();
+        boardHandler1.addBoard();
 
       } else if (command.equals("/board/list")) {
-        BoardHandler.listBoard();
+        boardHandler1.listBoard();
+
+      } else if (command.equals("/board2/add")) {
+        boardHandler2.addBoard();
+
+      } else if (command.equals("/board2/list")) {
+        boardHandler2.listBoard();
 
       } else if (command.equals("quit")) {
         System.out.println("안녕!");
