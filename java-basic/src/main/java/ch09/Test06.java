@@ -8,7 +8,7 @@ public class Test06 {
     // 식1) 2 * 3 - 2 + 7 = ?
     // 식2) 6 / 2 + 9 = ?
     
-    // Calculator3 설계도에 따라 result 변수를 준비한다.
+    // Calculator4 설계도에 따라 result 변수를 준비한다.
     Calculator4 c1 = new Calculator4();
     Calculator4 c2 = new Calculator4();
     

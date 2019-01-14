@@ -9,7 +9,7 @@ class Monitor1 {
   // boolean = false
   // char = '\u0000'
   //
-  // 주의! 로컬 변수는 자동 초기화 되지 않는다.
+  // 주의! 로컬 변수(stack 영역)는 자동 초기화 되지 않는다.
   //
   int bright; // 밝기 (0% ~ 100%)
   int contrast; // 명암 (0% ~ 100%)

@@ -5,7 +5,7 @@ import java.util.Scanner;
 import com.eomcs.lms.domain.Board;
 
 public class BoardHandler {
-  
+
   Scanner keyboard;
   final int LENGTH = 10;
   Board[] boards = new Board[LENGTH];
@@ -14,7 +14,7 @@ public class BoardHandler {
   public BoardHandler(Scanner keyboard) {
     this.keyboard = keyboard;
   }
-
+  
   public void listBoard() {
     for (int j = 0; j < boardIdx; j++) {
       System.out.printf("%3d, %-20s, %s, %d\n", 
@@ -25,21 +25,20 @@ public class BoardHandler {
 
   public void addBoard() {
     Board board = new Board();
-    
+
     System.out.print("번호? ");
     board.no = Integer.parseInt(keyboard.nextLine());
-    
+
     System.out.print("내용? ");
     board.contents = keyboard.nextLine();
-    
+
     board.createdDate = new Date(System.currentTimeMillis()); 
-    
+
     board.viewCount = 0;
-    
+
     this.boards[this.boardIdx] = board;
     this.boardIdx++;
-    
+
     System.out.println("저장하였습니다.");
   }
-
 }

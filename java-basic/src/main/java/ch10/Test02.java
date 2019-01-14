@@ -28,7 +28,7 @@ class My2 {
   // 4) 인스턴스 메서드
   // => 인스턴스 레퍼런스를 통해 호출한다.
   void m1() {
-    System.out.println("인스턴스 메서드: m1()");
+    System.out.println("인스턴스 메서드: 레퍼런스명.m1()");
   }
 }
 
