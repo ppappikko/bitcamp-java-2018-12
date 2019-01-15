@@ -7,11 +7,20 @@ import com.eomcs.lms.handler.MemberHandler;
 
 public class App {
 
-  public static Scanner keyboard = new Scanner(System.in);
-  public final static int LENGTH = 2;
+  static Scanner keyboard = new Scanner(System.in);
 
   public static void main(String[] args) {
-
+    
+    LessonHandler lh1 = new LessonHandler();
+    MemberHandler mh1 = new MemberHandler();
+    BoardHandler bh1 = new BoardHandler();
+    BoardHandler bh2 = new BoardHandler();
+    
+    lh1.keyboard = keyboard;
+    mh1.keyboard = keyboard;
+    bh1.keyboard = keyboard;
+    bh2.keyboard = keyboard;
+    
     while (true) {
       String command = prompt();
 

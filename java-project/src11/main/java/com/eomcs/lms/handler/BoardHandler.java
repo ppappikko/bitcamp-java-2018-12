@@ -7,17 +7,17 @@ import com.eomcs.lms.domain.Board;
 
 public class BoardHandler {
 
+  final int LENGTH = 2;
+  Board[] boards = new Board[App.LENGTH];
+  int boardIdx = 0;
+  public Scanner keyboard;
 
-  static Board[] boards = new Board[App.LENGTH];
-  static int boardIdx = 0;
-
-  public static void addBoard() {
+  public void addBoard() {
 
     if (boardIdx == App.LENGTH) {
       System.out.println("더 이상 추가할 수 없습니다..!");
     } else {
 
-      Scanner keyboard = App.keyboard;
 
       Board board = new Board();
 
@@ -39,7 +39,7 @@ public class BoardHandler {
 
   }
 
-  public static void listBoard() {
+  public void listBoard() {
     for (int j = 0; j < boardIdx; j++) {
       System.out.printf("%3d, %-20s, %s, %d\n", 
           boards[j].no, boards[j].contents, boards[j].createdDate, boards[j].viewCount);

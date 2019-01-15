@@ -10,48 +10,49 @@ public class App {
   static Scanner keyboard = new Scanner(System.in);
 
   public static void main(String[] args) {
-
-    // keyboard를 파라미터 값으로 받는 생성자를 사용!
-    LessonHandler lessonHandler1 = new LessonHandler(keyboard);
-    MemberHandler memberHandler1 = new MemberHandler(keyboard);
+    
+    // 인스턴스 멤버(필드, 메서드)를 생성한다.
+    // 이때 생성자를 사용하여 keyboard를 파라미터로 받는다.
+    LessonHandler lessonHandler = new LessonHandler(keyboard);
+    MemberHandler memberHandler = new MemberHandler(keyboard);
     BoardHandler boardHandler1 = new BoardHandler(keyboard);
     BoardHandler boardHandler2 = new BoardHandler(keyboard);
-
+    
     while (true) {
       String command = prompt();
 
       if (command.equals("/lesson/add")) {
-        lessonHandler1.addLesson();
-
+        lessonHandler.addLesson();
+        
       } else if (command.equals("/lesson/list")) {
-        lessonHandler1.listLesson();
-
+        lessonHandler.listLesson();
+      
       } else if (command.equals("/member/add")) {
-        memberHandler1.addMember();
-
+        memberHandler.addMember();
+        
       } else if (command.equals("/member/list")) {
-        memberHandler1.listMember();
-
-      } else if (command.equals("/board/add")) {
+        memberHandler.listMember();
+        
+      } else if (command.equals("/board1/add")) {
         boardHandler1.addBoard();
-
-      } else if (command.equals("/board/list")) {
+        
+      } else if (command.equals("/board1/list")) {
         boardHandler1.listBoard();
-
+        
       } else if (command.equals("/board2/add")) {
         boardHandler2.addBoard();
-
+        
       } else if (command.equals("/board2/list")) {
         boardHandler2.listBoard();
-
+        
       } else if (command.equals("quit")) {
         System.out.println("안녕!");
         break;
-
+        
       } else {
         System.out.println("실행할 수 없는 명령입니다.");
       }
-
+      
       System.out.println(); // 결과 출력 후 빈 줄 출력
     }
 
@@ -60,13 +61,6 @@ public class App {
 
   private static String prompt() {
     System.out.print("명령> ");
-    String command = keyboard.nextLine().toLowerCase();
-    return command;
+    return keyboard.nextLine().toLowerCase();
   }
-
-
-
-
-
-
 }

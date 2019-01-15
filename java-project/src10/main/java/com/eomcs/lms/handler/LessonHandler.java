@@ -7,12 +7,13 @@ import com.eomcs.lms.domain.Lesson;
 
 public class LessonHandler {
   
-  static Lesson[] lessons = new Lesson[App.LENGTH];
+  final static int LENGTH = 10;
+  static Lesson[] lessons = new Lesson[LENGTH];
   static int lessonIdx = 0;
+  static Scanner keyboard;
   
   public static void addLesson() {
     
-    Scanner keyboard = App.keyboard;
     Lesson lesson = new Lesson();
 
     System.out.print("번호? ");

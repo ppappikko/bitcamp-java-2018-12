@@ -5,7 +5,7 @@ import java.util.Scanner;
 import com.eomcs.lms.domain.Member;
 
 public class MemberHandler {
-
+  
   Scanner keyboard;
   final int LENGTH = 10;
   Member[] members = new Member[LENGTH];
@@ -25,30 +25,31 @@ public class MemberHandler {
 
   public void addMember() {
     Member member = new Member();
-
+    
     System.out.print("번호? ");
     member.no = Integer.parseInt(keyboard.nextLine());
-
+    
     System.out.print("이름? ");
     member.name = keyboard.nextLine();
-
+    
     System.out.print("이메일? ");
     member.email = keyboard.nextLine();
-
+    
     System.out.print("암호? ");
     member.password = keyboard.nextLine();
-
+  
     System.out.print("사진? ");
     member.photo = keyboard.nextLine();
-
+  
     System.out.print("전화? ");
     member.tel = keyboard.nextLine();
-
+  
     member.registeredDate = new Date(System.currentTimeMillis()); 
-
+    
     this.members[this.memberIdx] = member;
     this.memberIdx++;
-
+    
     System.out.println("저장하였습니다.");
   }
+
 }

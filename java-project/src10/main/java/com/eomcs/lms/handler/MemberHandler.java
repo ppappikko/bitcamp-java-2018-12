@@ -7,12 +7,13 @@ import com.eomcs.lms.domain.Member;
 
 public class MemberHandler {
   
-  static Member[] members = new Member[App.LENGTH];
+  final static int LENGTH = 10;
+  static Member[] members = new Member[LENGTH];
   static int memberIdx = 0;
+  static Scanner keyboard;
   
   public static void addMember() {
     
-    Scanner keyboard = App.keyboard;
     Member member = new Member();
     
     System.out.print("번호? ");

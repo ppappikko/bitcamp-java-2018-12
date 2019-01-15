@@ -16,7 +16,7 @@ public class LessonHandler {
   }
   
   public void listLesson() {
-    for (int j = 0; j < this.lessonIdx; j++) {
+    for (int j = 0; j < lessonIdx; j++) {
       System.out.printf("%3d, %-15s, %10s ~ %10s, %4d\n", 
           this.lessons[j].no, this.lessons[j].title, this.lessons[j].startDate, 
           this.lessons[j].endDate, this.lessons[j].totalHours);

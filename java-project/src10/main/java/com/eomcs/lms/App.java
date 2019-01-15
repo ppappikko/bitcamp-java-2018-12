@@ -7,10 +7,13 @@ import com.eomcs.lms.handler.MemberHandler;
 
 public class App {
   
-  public static Scanner keyboard = new Scanner(System.in);
-  public final static int LENGTH = 10;
+  static Scanner keyboard = new Scanner(System.in);
   
   public static void main(String[] args) {
+    
+    LessonHandler.keyboard = keyboard;
+    MemberHandler.keyboard = keyboard;
+    BoardHandler.keyboard = keyboard;
     
     while (true) {
       String command = prompt();
@@ -47,7 +50,7 @@ public class App {
     keyboard.close();
   }
   
-  static String prompt() {
+  private static String prompt() {
     System.out.print("명령> ");
     return keyboard.nextLine();
   }

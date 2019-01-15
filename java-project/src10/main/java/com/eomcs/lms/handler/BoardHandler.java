@@ -7,12 +7,13 @@ import com.eomcs.lms.domain.Board;
 
 public class BoardHandler {
   
-  static Board[] boards = new Board[App.LENGTH];
+  final static int LENGTH = 10;
+  static Board[] boards = new Board[LENGTH];
   static int boardIdx = 0;
+  static Scanner keyboard;
   
   public static void addBoard() {
     
-    Scanner keyboard = App.keyboard;
     Board board = new Board();
     
     System.out.print("번호? ");

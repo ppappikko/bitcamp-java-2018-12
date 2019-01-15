@@ -7,16 +7,17 @@ import com.eomcs.lms.domain.Lesson;
 
 public class LessonHandler {
 
-  static Lesson[] lessons = new Lesson[App.LENGTH];
-  static int lessonIdx = 0;
+  final int LENGTH = 2;
+  Lesson[] lessons = new Lesson[App.LENGTH];
+  int lessonIdx = 0;
+  public Scanner keyboard;
 
-  public static void addLesson() {
+  public void addLesson() {
 
     if (lessonIdx == App.LENGTH) {
       System.out.println("더 이상 추가할 수 없습니다..!");
     } else {
 
-      Scanner keyboard = App.keyboard;
 
       // 클래스로 정의한 새 데이터 타입의 메모리(인스턴스) 만들기
       Lesson lesson = new Lesson();
@@ -50,7 +51,7 @@ public class LessonHandler {
       System.out.print("\n저장하였습니다!");
     }
   }
-  public static void listLesson() {
+  public void listLesson() {
     // lesson 출력 부분
     for (int j = 0; j < lessonIdx; j++) {
       System.out.printf("%3d, %-15s, %10s ~ %10s, %4d\n", 

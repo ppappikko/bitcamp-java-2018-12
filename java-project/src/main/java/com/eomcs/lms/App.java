@@ -19,6 +19,7 @@ public class App {
     BoardHandler boardHandler2 = new BoardHandler(keyboard);
     
     while (true) {
+      
       String command = prompt();
 
       if (command.equals("/lesson/add")) {
@@ -54,8 +55,10 @@ public class App {
       }
       
       System.out.println(); // 결과 출력 후 빈 줄 출력
-    }
-
+      
+    } // while문 종료
+    
+    // 자원 해제
     keyboard.close();
   }
 

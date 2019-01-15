@@ -7,16 +7,17 @@ import com.eomcs.lms.domain.Member;
 
 public class MemberHandler {
 
-  static Member[] members = new Member[App.LENGTH];
-  static int memberIdx = 0;
+  final int LENGTH = 2;
+  Member[] members = new Member[App.LENGTH];
+  int memberIdx = 0;
+  public Scanner keyboard;
 
-  public static void addMember() {
+  public void addMember() {
 
     if (memberIdx == App.LENGTH) {
       System.out.println("더 이상 추가할 수 없습니다..!");
     } else {
 
-      Scanner keyboard = App.keyboard;
 
       Member member = new Member();
 
@@ -48,7 +49,7 @@ public class MemberHandler {
   }
 
 
-  public static void listMember() {
+  public void listMember() {
     // member 출력 부분
     for (int j = 0; j < memberIdx; j++) {
       System.out.printf("%3d, %-4s, %-20s, %-15s, %s\n", 
