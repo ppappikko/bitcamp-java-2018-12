@@ -30,7 +30,6 @@ public class Test14 {
     //    생성자에 바이트 배열을 넘겨줄 때 
     //    배열에 들어 있는 코드 값이 어떤 문자표의 코드 값인지 알려줘야 한다.
     //
-    
     String s5 = new String(bytes, "euc-kr");
     
     byte[] bytes2 = {(byte)0xac, (byte)0x00, (byte)0xac, (byte)0x01, 
