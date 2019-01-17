@@ -7,18 +7,17 @@ import com.eomcs.lms.domain.Member;
 public class MemberHandler {
   
   Scanner keyboard;
-  MemberList memberList = new MemberList();
+  ArrayList arrayList = new ArrayList();
   
   public MemberHandler(Scanner keyboard) {
     this.keyboard = keyboard;
   }
   
   public void listMember() {
-    
-    for (Member member : memberList.toArray()) {
+    for (Object member : arrayList.toArray()) {
       System.out.printf("%3d, %-4s, %-20s, %-15s, %s\n", 
-          member.getNo(), member.getName(), member.getEmail(), 
-          member.getTel(), member.getRegisteredDate());
+          ((Member) member).getNo(), ((Member) member).getName(), ((Member) member).getEmail(), 
+          ((Member) member).getTel(), ((Member) member).getRegisteredDate());
     }
   }
 
@@ -45,7 +44,7 @@ public class MemberHandler {
   
     member.setRegisteredDate(new Date(System.currentTimeMillis())); 
     
-    memberList.add(member);
+    arrayList.add(member);
     
     System.out.println("저장하였습니다.");
   }

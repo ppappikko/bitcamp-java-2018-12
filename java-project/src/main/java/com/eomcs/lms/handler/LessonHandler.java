@@ -7,17 +7,17 @@ import com.eomcs.lms.domain.Lesson;
 public class LessonHandler {
   
   Scanner keyboard;
-  LessonList lessonList = new LessonList();
+  ArrayList arrayList = new ArrayList();
   
   public LessonHandler(Scanner keyboard) {
     this.keyboard = keyboard;
   }
   
   public void listLesson() {
-    for (Lesson lesson : lessonList.toArray()) {
+    for (Object lesson : arrayList.toArray()) {
       System.out.printf("%3d, %-15s, %10s ~ %10s, %4d\n", 
-          lesson.getNo(), lesson.getTitle(), lesson.getStartDate(), 
-          lesson.getEndDate(), lesson.getTotalHours());
+          ((Lesson) lesson).getNo(), ((Lesson) lesson).getTitle(), ((Lesson) lesson).getStartDate(), 
+          ((Lesson) lesson).getEndDate(), ((Lesson) lesson).getTotalHours());
     }
   }
 
@@ -45,7 +45,7 @@ public class LessonHandler {
     System.out.print("일수업시간? ");
     lesson.setDayHours(Integer.parseInt(keyboard.nextLine()));
 
-    lessonList.add(lesson);
+    arrayList.add(lesson);
     
     System.out.println("저장하였습니다.");
   }
