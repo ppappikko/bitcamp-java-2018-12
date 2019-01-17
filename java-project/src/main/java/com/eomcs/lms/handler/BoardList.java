@@ -1,5 +1,6 @@
 package com.eomcs.lms.handler;
 
+import java.util.Arrays;
 import com.eomcs.lms.domain.Board;
 
 public class BoardList {
@@ -27,6 +28,18 @@ public class BoardList {
   }
   
   public void add(Board board) {
+    if (boardIdx == boardList.length) {
+      
+      boardList = Arrays.copyOf(boardList, boardList.length + (boardList.length >> 1));
+      
+      /*
+      Board[] a = new Board[boardList.length + (boardList.length >> 1)];
+      for (int i = 0; i < boardList.length; i++) {
+        a[i] = boardList[i];
+      }
+      boardList = a;
+      */
+    }
     boardList[boardIdx] = board;
     boardIdx++;
   }
