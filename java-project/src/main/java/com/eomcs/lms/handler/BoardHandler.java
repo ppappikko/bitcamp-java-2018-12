@@ -7,16 +7,16 @@ import com.eomcs.lms.domain.Board;
 public class BoardHandler {
 
   Scanner keyboard;
-  ArrayList arrayList = new ArrayList();
+  ArrayList<Board> arrayList;
 
   public BoardHandler(Scanner keyboard) {
     this.keyboard = keyboard;
+    arrayList = new ArrayList<>();
   }
 
   public void listBoard() {
-    Object[] boards = arrayList.toArray();
-    for (Object obj : boards) {
-      Board board = (Board) obj;
+    Board[] boards = arrayList.toArray(new Board[] {});
+    for (Board board : boards) {
       System.out.printf("%3d, %-20s, %s, %d\n", 
           board.getNo(), board.getContents(), 
           board.getCreatedDate(), board.getViewCount());
@@ -41,4 +41,21 @@ public class BoardHandler {
     System.out.println("저장하였습니다.");
   }
 
+  
+  public void detailBoard() {
+    
+    System.out.print("번호? ");
+    Board board = arrayList.get(Integer.parseInt(keyboard.nextLine()));
+    
+    System.out.printf("내용: %s\n생성 날짜: %s\n조회수: %d\n",
+        board.getContents(), board.getCreatedDate(), board.getViewCount());
+  }
+  
+  public void updateBoard() {
+    
+  }
+  
+  public void deleteBoard() {
+    
+  }
 }

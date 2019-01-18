@@ -34,10 +34,10 @@ public class App {
       } else if (command.equals("/member/list")) {
         memberHandler.listMember();
         
-      } else if (command.equals("/board1/add")) {
+      } else if (command.equals("/board/add")) {
         boardHandler1.addBoard();
         
-      } else if (command.equals("/board1/list")) {
+      } else if (command.equals("/board/list")) {
         boardHandler1.listBoard();
         
       } else if (command.equals("/board2/add")) {
@@ -45,6 +45,9 @@ public class App {
         
       } else if (command.equals("/board2/list")) {
         boardHandler2.listBoard();
+        
+      } else if (command.equals("/board/detail")) {
+        boardHandler1.detailBoard();
         
       } else if (command.equals("quit")) {
         System.out.println("안녕!");

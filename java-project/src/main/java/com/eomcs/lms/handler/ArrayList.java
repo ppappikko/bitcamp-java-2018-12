@@ -2,35 +2,39 @@ package com.eomcs.lms.handler;
 
 import java.util.Arrays;
 
-public class ArrayList {
-  private int LENGTH = 10;
-  private Object[] arr;
+public class ArrayList<E> {
+  private int DEFAULT_LENGTH = 10;
+  private Object[] list;
   private int size = 0;
   
   public ArrayList() {
-    this.arr = new Object[this.LENGTH];
+    this.list = new Object[DEFAULT_LENGTH];
   }
   
   public ArrayList(int length) {
-    if (length > this.LENGTH) {
-      this.arr = new Object[length];
+    if (length > this.DEFAULT_LENGTH) {
+      this.list = new Object[length];
     } else {
-      this.arr = new Object[this.LENGTH];
+      this.list = new Object[DEFAULT_LENGTH];
     }
   }
   
-  public Object[] toArray() {
-    Object[] objects = new Object[size];
+  @SuppressWarnings("unchecked")
+  public E[] toArray(E[] sampleArr) {
+    return (E[]) Arrays.copyOf(list, size, sampleArr.getClass());
+    /*
+    E[] arr = Arrays.copyOf(sampleArr, size);
     for (int i = 0; i < size; i++) {
-      objects[i] = arr[i];
+      arr[i] = (E) this.list[i];
     }
-    return objects;
+    return arr;
+    */
   }
 
-  public void add(Object object) {
-    if (size == arr.length) {
+  public void add(E object) {
+    if (size == list.length) {
 
-      arr = Arrays.copyOf(arr, arr.length + (arr.length >> 1));
+      list = Arrays.copyOf(list, list.length + (list.length >> 1));
 
       /*
       Object[] a = new Object[arr.length + (arr.length >> 1)];
@@ -40,7 +44,29 @@ public class ArrayList {
       arr = a;
        */
     }
-    arr[size] = object;
+    list[size] = object;
     size++;
   }
+  
+  @SuppressWarnings("unchecked")
+  public E get(int index) {
+    // index : 값을 꺼낼 배열의 항목 위치
+    
+    return (E) this.list[index-1];
+  }
+  
+  public E set(int index, E value) {
+    // index : 값을 변경할 배열의 항목 위치
+    // value : 해당 위치에 있는 값을 대체할 값
+    // 리턴 값 : 대체되기 전의 기존 값
+    return null;
+  }
+  
+  public E remove(int index) {
+    // index : 삭제할 배열의 항목 위치
+    // 리턴 값 : 삭제된 이전 값
+    // 힌트 : System.arraycopy() 참고
+    return null;
+  }
+  
 }
