@@ -163,3 +163,38 @@
 
 ## 12일 
 - 과제 풀이
+- 생성자 활용 : String, java.util.Date, java.util.Calendar
+- 디자인 패턴 : Singleton, Factory Method
+- String 클래스 사용법 
+- Immutable과 Mutable : String과 StringBuffer
+
+## 13일 
+- 과제 풀이 : 14번
+- Wrapper 클래스의 역할과 활용법
+- 오토 박싱과 오토 언박싱 
+- Wrapper 클래스의 생성자가 deprecated 된 이유
+- 캡슐화의 필요성과 활용법
+- setter/getter와 프로퍼티
+- 접근 제한자(modifier): private, (default), protected, public
+- 기능을 확장하는 다양한 방법: 기존 코드 변경, 기존 코드 복제
+- 상속을 이용한 기능 확장의 이점
+
+## 14일 
+- 과제 풀이 
+- 상속의 의미: 수퍼 클래스의 멤버 사용권 획득 
+- 상속 관계에서 인스턴스 필드 생성과 초기화 과정
+- 상속에서 생성자 호출 과정, super()의 활용
+- 다중 상속이 불가한 이유 
+- 오버라이딩이 필요한 이유
+- 오버라이딩 규칙과 this, super 키워드의 메서드 호출 규칙
+- 오버로딩이 필요한 이유와 규칙
+- 다형적 변수의 필요성과 사용법
+- 다형적 변수와 오버라이딩 메서드
+- 다형적 변수와 형변환
+
+## 15일 
+- 과제 풀이
+- 상속의 종류: generalization과 specialization
+- Object 클래스에 대하여
+- 추상 메서드와 추상 클래스
+- 정렬 알고리즘: 다형적 변수, 추상 클래스, 추상 메서드 활용

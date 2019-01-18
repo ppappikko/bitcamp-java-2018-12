@@ -14,10 +14,12 @@ public class BoardHandler {
   }
 
   public void listBoard() {
-    for (Object board : arrayList.toArray()) {
+    Object[] boards = arrayList.toArray();
+    for (Object obj : boards) {
+      Board board = (Board) obj;
       System.out.printf("%3d, %-20s, %s, %d\n", 
-          ((Board) board).getNo(), ((Board) board).getContents(), 
-          ((Board) board).getCreatedDate(), ((Board) board).getViewCount());
+          board.getNo(), board.getContents(), 
+          board.getCreatedDate(), board.getViewCount());
     }
   }
 

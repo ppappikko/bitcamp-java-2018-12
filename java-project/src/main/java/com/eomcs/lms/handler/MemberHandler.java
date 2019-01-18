@@ -14,10 +14,12 @@ public class MemberHandler {
   }
   
   public void listMember() {
-    for (Object member : arrayList.toArray()) {
+    Object[] members = arrayList.toArray();
+    for (Object obj : members) {
+      Member member = (Member) obj;
       System.out.printf("%3d, %-4s, %-20s, %-15s, %s\n", 
-          ((Member) member).getNo(), ((Member) member).getName(), ((Member) member).getEmail(), 
-          ((Member) member).getTel(), ((Member) member).getRegisteredDate());
+          member.getNo(), member.getName(), member.getEmail(), 
+          member.getTel(), member.getRegisteredDate());
     }
   }
 

@@ -14,10 +14,12 @@ public class LessonHandler {
   }
   
   public void listLesson() {
-    for (Object lesson : arrayList.toArray()) {
+    Object[] lessons = arrayList.toArray();
+    for (Object obj : lessons) {
+      Lesson lesson = (Lesson) obj;
       System.out.printf("%3d, %-15s, %10s ~ %10s, %4d\n", 
-          ((Lesson) lesson).getNo(), ((Lesson) lesson).getTitle(), ((Lesson) lesson).getStartDate(), 
-          ((Lesson) lesson).getEndDate(), ((Lesson) lesson).getTotalHours());
+          lesson.getNo(), lesson.getTitle(), lesson.getStartDate(), 
+          lesson.getEndDate(), lesson.getTotalHours());
     }
   }
 
