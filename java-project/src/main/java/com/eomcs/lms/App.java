@@ -49,6 +49,9 @@ public class App {
       } else if (command.equals("/board/detail")) {
         boardHandler1.detailBoard();
         
+      } else if (command.equals("/board/update")) {
+        boardHandler1.updateBoard();
+        
       } else if (command.equals("quit")) {
         System.out.println("안녕!");
         break;
