@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class ArrayList<E> {
   private int DEFAULT_LENGTH = 10;
   private Object[] list;
-  private int size = 0;
+  int size = 0;
 
   public ArrayList() {
     this.list = new Object[DEFAULT_LENGTH];
@@ -65,13 +65,18 @@ public class ArrayList<E> {
     return tmp;
   }
 
+  @SuppressWarnings("unchecked")
   public E remove(int index) {
     // index : 삭제할 배열의 항목 위치
     // 리턴 값 : 삭제된 이전 값
     // 힌트 : System.arraycopy() 참고
-    this.list[index] = null;
+    E tmp = (E) this.list[index];
     
-    return null;
+    int newsize = size - 1;
+    System.arraycopy(list, index + 1, list, index, newsize - index);
+    list[size = newsize] = null;
+    
+    return tmp;
   }
 
 }

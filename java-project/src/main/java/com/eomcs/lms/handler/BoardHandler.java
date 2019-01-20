@@ -88,6 +88,16 @@ public class BoardHandler {
   }
 
   public void deleteBoard() {
+    
+    System.out.print("번호? ");
+    int no = Integer.parseInt(keyboard.nextLine());
+    
+    for (int i = 0; i < arrayList.size; i++) {
+      Board board = arrayList.get(i);
+      if (board.getNo() == no) {
+        
+      }
+    }
 
   }
 }
