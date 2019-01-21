@@ -32,46 +32,4 @@ public class ArrayList<E> {
 
     list[size++] = obj;
   }
-
-  @SuppressWarnings("unchecked")
-  public E get(int index) {
-    if (index < 0 || index >= size) {
-      return null;
-    }
-    return (E) list[index];
-  }
-
-  public int size() {
-    return this.size;
-  }
-
-  @SuppressWarnings("unchecked")
-  public E set(int index, E temp) {
-    if (index < 0 || index >= size) {
-      return null;
-    }
-    
-    E obj = (E) list[index];
-    
-    list[index] = temp;
-    
-    return obj;
-  }
-
-  @SuppressWarnings("unchecked")
-  public E remove(int index) {
-    if (index < 0 || index >= size) {
-      return null;
-    }
-    
-    E obj = (E) list[index];
-    
-    for (int i = index; i < size - 1; i++) {
-      list[i] = list[i + 1];
-    }
-    size--;
-    
-    
-    return obj;
-  }
 }
