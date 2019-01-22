@@ -1,4 +1,4 @@
-package com.eomcs.lms.handler;
+package com.eomcs.lms.util;
 
 import java.util.Arrays;
 
@@ -8,7 +8,7 @@ public class ArrayList<E> {
   private int size = 0;
 
   public ArrayList() {
-    list  = new Object[DEFAULT_CAPACITY];
+    this(0);
   }
 
   public ArrayList(int initialCapacity) {
@@ -24,13 +24,24 @@ public class ArrayList<E> {
   }
 
   public void add(E obj) {
-    if (size >= list.length) {
-      int oldCapacity = list.length;
-      int newCapacity = oldCapacity + (oldCapacity >> 1);
-      list = Arrays.copyOf(list, newCapacity);
-    }
-
+    increase();
     list[size++] = obj;
+  }
+  
+  public int insert(int index, E value) {
+    if (index < 0 || index >= size) {
+      return -1;
+    }
+    
+    increase();
+    
+    for (int i = size - 1; i >= index; i--) {
+      this.list[i + 1] = this.list[i];
+    }
+    size++;
+    this.list[index] = value;
+    
+    return 0;
   }
 
   @SuppressWarnings("unchecked")
@@ -41,21 +52,17 @@ public class ArrayList<E> {
     return (E) list[index];
   }
 
-  public int size() {
-    return this.size;
-  }
-
   @SuppressWarnings("unchecked")
   public E set(int index, E temp) {
     if (index < 0 || index >= size) {
       return null;
     }
     
-    E obj = (E) list[index];
+    E old = (E) list[index];
     
     list[index] = temp;
     
-    return obj;
+    return old;
   }
 
   @SuppressWarnings("unchecked")
@@ -64,14 +71,25 @@ public class ArrayList<E> {
       return null;
     }
     
-    E obj = (E) list[index];
+    E old = (E) list[index];
     
     for (int i = index; i < size - 1; i++) {
       list[i] = list[i + 1];
     }
     size--;
     
-    
-    return obj;
+    return old;
+  }
+  
+  public int size() {
+    return this.size;
+  }
+
+  private void increase() {
+    if (size >= list.length) {
+      int oldCapacity = list.length;
+      int newCapacity = oldCapacity + (oldCapacity >> 1);
+      list = Arrays.copyOf(list, newCapacity);
+    }
   }
 }
