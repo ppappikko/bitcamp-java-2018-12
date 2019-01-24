@@ -195,6 +195,38 @@
 ## 15일 
 - 과제 풀이
 - 상속의 종류: generalization과 specialization
-- Object 클래스에 대하여
+- generalization과 추상 클래스, 추상 메서드
+- Object 클래스에 대하여: toString()
+- Hash code와 Hash 알고리즘
+- HashMap과 Key 클래스, hashCode(), equals()
+- 제네릭 사용법
+
+## 16일 
+- 과제 풀이 
 - 추상 메서드와 추상 클래스
 - 정렬 알고리즘: 다형적 변수, 추상 클래스, 추상 메서드 활용
+
+## 17일 
+- 추상 클래스 활용
+- 인터페이스 문법 활용
+- 인터페이스와 추상 클래스를 함께 활용하는 예  
+- ArrayList 구현 
+- JUnit 테스트 프레임워크를 활용하여 단위 테스트 수행하기
+
+## 18일 
+- 디자인 패턴: 템플릿 메서드 패턴 구현 
+- 디자인 패턴: 추상 팩토리 패턴 구현 
+- Linked List 구현 
+- Stack 구현 
+- Queue 구현 
+
+## 19일 
+- 중첩 클래스: static / non-static nested 클래스 
+- static nested class의 활용 예 : 분류명 다루는 클래스 
+- non-static nested class의 활용 예 : LinkedList의 인스턴스를 사용하는 Array 중첩 클래스
+- anonymous class : File의 list()에서 사용할 FilenameFilter 구현하기 
+- LinkedList, Stack, Queue 에 중첩 클래스 및 제네릭 적용
+- 20단계 과제 풀이
+- 21단계 과제 풀이
+- 인스턴스 복제 : java.lang.Cloneable 인터페이스와 Object.clone() 메서드 
+ 
