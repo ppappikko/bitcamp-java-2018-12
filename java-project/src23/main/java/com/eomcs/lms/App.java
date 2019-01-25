@@ -16,7 +16,9 @@ public class App {
   static Queue<String> commandHistory2 = new Queue<>();
 
   public static void main(String[] args) {
-
+    
+    // 핸들러가 필요로 하는 의존 객체를 이 클래스에서 만들어 주입해 준다.
+    // => "의존 객체(Dependency Injection; DI)"이라 한다.
     LessonHandler lessonHandler = new LessonHandler(keyboard, new ArrayList<>());
     MemberHandler memberHandler = new MemberHandler(keyboard, new ArrayList<>());
     BoardHandler boardHandler1 = new BoardHandler(keyboard, new LinkedList<>());
@@ -27,6 +29,8 @@ public class App {
 
       // 사용자가 입력한 명령을 스택에 보관한다.
       commandHistory.push(command);
+
+      // 사용자가 입력한 명령을 큐에 보관한다.
       commandHistory2.offer(command);
 
       if (command.equals("/lesson/add")) {
@@ -108,44 +112,62 @@ public class App {
 
     keyboard.close();
   }
- 
+
   private static void printCommandHistory2() {
     try {
-      
-      Queue<String> stack = commandHistory2.clone();
-      
+      Queue<String> temp = commandHistory2.clone();
+
       int count = 0;
-      while (!stack.empty()) {
-        System.out.println(stack.poll());
-        
+      while (!temp.empty()) {
+        System.out.println(temp.poll());
         if (++count % 5 == 0) {
-          System.out.print(":");
-          if (keyboard.nextLine().equalsIgnoreCase("q"))
+          System.out.print(": ");
+          String esc = keyboard.nextLine();
+          if (esc.equalsIgnoreCase("q")) {
             break;
+          }
         }
       }
     } catch (Exception e) {
-      System.out.println("명령어 목록을 출력하는데 실패했습니다.");
+      e.printStackTrace();
     }
   }
 
-  private static void printCommandHistory() {
+  /* private static void printCommandHistory() {
     try {
-      
-      Stack<String> stack = commandHistory.clone();
-      
-      int count = 0;
-      while (!stack.empty()) {
-        System.out.println(stack.pop());
-        
-        if (++count % 5 == 0) {
-          System.out.print(":");
-          if (keyboard.nextLine().equalsIgnoreCase("q"))
-            break;
+      Stack<String> temp = commandHistory.clone();
+
+      while (!temp.empty()) {
+        for (int i = 0; i < 5 && !temp.empty(); i++) {
+          System.out.println(temp.pop());
+        }
+        System.out.print(": ");
+        String esc = keyboard.nextLine();
+        if (esc.equalsIgnoreCase("q")) {
+          return;
         }
       }
     } catch (Exception e) {
-      System.out.println("명령어 목록을 출력하는데 실패했습니다.");
+      e.printStackTrace();
+    }
+  } */
+
+  private static void printCommandHistory() {
+    try {
+      Stack<String> temp = commandHistory.clone();
+      int count = 0;
+      while (!temp.empty()) {
+        System.out.println(temp.pop());
+        if (++count % 5 == 0) {
+          System.out.print(": ");
+          String input = keyboard.nextLine();
+          if (input.equalsIgnoreCase("q")) {
+            break;
+          }
+        }
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
     }
   }
 

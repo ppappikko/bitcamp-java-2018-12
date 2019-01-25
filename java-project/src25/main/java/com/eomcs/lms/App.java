@@ -1,19 +1,20 @@
 package com.eomcs.lms;
 
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Scanner;
+import java.util.Stack;
 import com.eomcs.lms.handler.BoardHandler;
 import com.eomcs.lms.handler.LessonHandler;
 import com.eomcs.lms.handler.MemberHandler;
-import com.eomcs.util.ArrayList;
-import com.eomcs.util.LinkedList;
-import com.eomcs.util.Queue;
-import com.eomcs.util.Stack;
 
 public class App {
 
   static Scanner keyboard = new Scanner(System.in);
   static Stack<String> commandHistory = new Stack<>();
-  static Queue<String> commandHistory2 = new Queue<>();
+  static ArrayDeque<String> commandHistory2 = new ArrayDeque<>();
 
   public static void main(String[] args) {
 
@@ -94,10 +95,24 @@ public class App {
         break;
 
       } else if (command.equals("history")) {
-        printCommandHistory();
+        printCommandHistory(new Iterator<String>() {
+          int index = commandHistory.size() - 1;
+          
+          @Override
+          public boolean hasNext() {
+            return index >= 0;
+          }
+
+          @Override
+          public String next() {
+            // TODO Auto-generated method stub
+            return commandHistory.get(index--);
+          }
+          
+        });
 
       } else if (command.equals("history2")) {
-        printCommandHistory2();
+        printCommandHistory(commandHistory2.iterator());
 
       } else {
         System.out.println("실행할 수 없는 명령입니다.");
@@ -109,14 +124,13 @@ public class App {
     keyboard.close();
   }
  
-  private static void printCommandHistory2() {
+  /*private static void printCommandHistory2() {
     try {
-      
-      Queue<String> stack = commandHistory2.clone();
+      Iterator<String> iterator = commandHistory2.iterator();
       
       int count = 0;
-      while (!stack.empty()) {
-        System.out.println(stack.poll());
+      while (iterator.hasNext()) {
+        System.out.println(iterator.next());
         
         if (++count % 5 == 0) {
           System.out.print(":");
@@ -127,16 +141,13 @@ public class App {
     } catch (Exception e) {
       System.out.println("명령어 목록을 출력하는데 실패했습니다.");
     }
-  }
+  }*/
 
-  private static void printCommandHistory() {
+  private static void printCommandHistory(Iterator<String> iterator) {
     try {
-      
-      Stack<String> stack = commandHistory.clone();
-      
       int count = 0;
-      while (!stack.empty()) {
-        System.out.println(stack.pop());
+      while (iterator.hasNext()) {
+        System.out.println(iterator.next());
         
         if (++count % 5 == 0) {
           System.out.print(":");

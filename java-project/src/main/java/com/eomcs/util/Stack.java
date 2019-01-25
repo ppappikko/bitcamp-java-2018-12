@@ -1,54 +1,53 @@
 package com.eomcs.util;
 
+import java.util.Arrays;
+
 public class Stack<E> implements Cloneable {
   
-  public static final int DEFAULT_SIZE = 5;
-  Object[] list;
-  int size;
+  private static final int DEFAULT_SIZE = 10;
   
-  public Stack() {
-    list = new Object[DEFAULT_SIZE];
-  }
-  
-  public void push(E value) {
-    // 맨 마지막에 추가한다.
-    // 배열의 크기가 작다면 확장해야 한다.
-    if (size >= list.length) {
-      
-      Object[] newList = new Object[list.length + (list.length >> 1)];
-      for (int i = 0; i < list.length; i++) {
-        newList[i] = list[i];
-      }
-      
-      list = newList;
-    }
-    
-    list[size++] = value;
-  }
+  private E[] list;
+  private int size = 0;
   
   @SuppressWarnings("unchecked")
-  public E pop() {
-    // 맨 마지막 값을 꺼내 리턴한다.
-    // 꺼낸 값은 배열에서 제거되어야 한다.
-    if (size == 0) {
-      return null;
+  public Stack() {
+    list = (E[]) new Object[DEFAULT_SIZE];
+  }
+  
+  @Override
+  public Stack<E> clone() throws CloneNotSupportedException {
+    Stack<E> temp = new Stack<>();
+    for (int i = 0; i < this.size(); i++) {
+      temp.push(list[i]);
     }
     
-    return (E) list[--size];
+    return temp;
+  }
+  
+  public void push(E obj) {
+    if (size >= list.length) {
+      // 스택이 꽉차면 크기를 50% 늘린다.
+      int oldCapacity = list.length;
+      int newCapacity = oldCapacity + (oldCapacity >> 1);
+      list = Arrays.copyOf(list, newCapacity);
+    }
+    
+    list[size++] = obj;
+  }
+  
+  public E pop() {
+    if (size == 0) 
+      return null;
+     
+    return list[--size];
+  }
+
+  public int size() {
+    return size;
   }
   
   public boolean empty() {
     return size == 0;
   }
-  
-  public int size() {
-    return size;
-  }
-  
-  @SuppressWarnings("unchecked")
-  @Override
-  public Stack<E> clone() throws CloneNotSupportedException {
-    return (Stack<E>) super.clone();
-  }
-  
+    
 }
