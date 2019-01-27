@@ -103,11 +103,11 @@ public class BoardHandler {
   }
   
   private int indexOfBoard(int no) {
+    int index = -1;
     for (int i = 0; i < list.size(); i++) {
-      Board b = list.get(i);
-      if (b.getNo() == no)
-        return i;
+      if (list.get(i).getNo() == no)
+        index = i;
     }
-    return -1;
+    return index;
   }
 }

@@ -20,7 +20,9 @@ public class ArrayList<E> implements List<E> {
   
   @Override
   public Object[] toArray() {
+    // 새로운 오브젝트 배열을 현재 size 만큼 생성하고 arr에 담는다.
     Object[] arr = new Object[size];
+    // 메소드를 사용하여 list에 저장되있는 객체(주소)를 복제 한다.
     System.arraycopy(list, 0, arr, 0, size);
     
     return arr;
@@ -39,9 +41,7 @@ public class ArrayList<E> implements List<E> {
   
   public void add(E obj) {
     if (size >= list.length) {
-      int oldCapacity = list.length;
-      int newCapacity = oldCapacity + (oldCapacity >> 1);
-      list = Arrays.copyOf(list, newCapacity);
+      list = Arrays.copyOf(list, list.length + (list.length >> 1));
     }
     
     list[size++] = obj;
@@ -73,6 +73,7 @@ public class ArrayList<E> implements List<E> {
     E old = (E)list[index];
     
     int newSize = size - 1;
+    // 리스트의 인덱스 + 1 부터 인덱스에 있는 값을 복제 사이즈 - 1 만큼
     System.arraycopy(list, index + 1, list, index, newSize - index);
     list[size = newSize] = null;
     return old;
