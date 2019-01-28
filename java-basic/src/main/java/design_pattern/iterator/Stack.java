@@ -50,6 +50,7 @@ public class Stack<E> {
   public Iterator<E> iterator() {
     
     return new Iterator<E>() {
+      // anonymous class
       // 이 클래스는 Stack의 값을 꺼내주는 일을 전문적으로 한다.
       // => 이런 일을 하는 객체를 "Iterator"라 부른다.
       //
