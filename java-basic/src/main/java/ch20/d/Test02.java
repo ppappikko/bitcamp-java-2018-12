@@ -48,7 +48,7 @@ public class Test02 {
     map.put("ccc", null);
     System.out.println(map.get("ccc"));
     
-    // Hashtable은 key로 null을 허용하지 않는다.
+    // Hashtable은 value로 null을 허용하지 않는다.
     // table.put("ccc", null); // runtime 오류!
     
   }
