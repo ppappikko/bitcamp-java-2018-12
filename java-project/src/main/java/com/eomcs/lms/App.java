@@ -1,10 +1,15 @@
 package com.eomcs.lms;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.Stack;
 import com.eomcs.lms.domain.Board;
@@ -32,12 +37,17 @@ public class App {
   static Scanner keyboard = new Scanner(System.in);
   static Stack<String> commandHistory = new Stack<>();
   static ArrayDeque<String> commandHistory2 = new ArrayDeque<>();
+  static LinkedList<Lesson> lessonList = new LinkedList<>();
+  static LinkedList<Member> memberList = new LinkedList<>();
+  static ArrayList<Board> boardList = new ArrayList<>();
 
   public static void main(String[] args) {
-
-    LinkedList<Lesson> lessonList = new LinkedList<>();
-    LinkedList<Member> memberList = new LinkedList<>();
-    ArrayList<Board> boardList = new ArrayList<>();
+    
+    // 데이터 로딩
+    loadLessonData();
+    loadMemberData();
+    loadBoardData();
+    
     HashMap<String, Command> commandMap = new HashMap<>();
 
     commandMap.put("/lesson/add", new LessonAddCommand(keyboard, lessonList));
@@ -67,7 +77,7 @@ public class App {
 
 
       if (command.equals("quit")) {
-        System.out.println("안녕!");
+        quit();
         break;
       } else if (command.equals("history")) {
         printCommandHistory(new Iterator<String>() {
@@ -80,7 +90,6 @@ public class App {
 
           @Override
           public String next() {
-            // TODO Auto-generated method stub
             return commandHistory.get(index--);
           }
 
@@ -153,5 +162,120 @@ public class App {
   private static String prompt() {
     System.out.print("명령> ");
     return keyboard.nextLine().toLowerCase();
+  }
+  
+  private static void quit() {
+    saveLessonData();
+    saveMemberData();
+    saveBoardData();
+    System.out.println("안녕!");
+  }
+  
+  private static void loadLessonData() {
+    try (FileReader in = new FileReader("lesson.csv");
+        Scanner in2 = new Scanner(in)) {
+      
+      while (true) {
+        // 번호,제목,내용,시작일,종료일,총강의시간,일강의시간
+        lessonList.add(Lesson.valueOf(in2.nextLine()));
+      }
+      
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+      
+    } catch (IOException e) {
+      e.printStackTrace();
+      
+    } catch (NoSuchElementException e) {
+      System.out.println("수업 데이터 로딩 완료!");
+    }
+  }
+  
+  private static void saveLessonData() {
+    try (FileWriter out = new FileWriter("lesson.csv");) {
+      for (Lesson lesson : lessonList) {
+        out.write(String.format("%s,%s,%s,%s,%s,%d,%d\n",
+            lesson.getNo(),
+            lesson.getTitle(),
+            lesson.getContents(),
+            lesson.getStartDate(),
+            lesson.getEndDate(),
+            lesson.getTotalHours(),
+            lesson.getDayHours()));
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+  
+  private static void loadMemberData() {
+    try (FileReader in = new FileReader("member.csv");
+        Scanner in2 = new Scanner(in)) {
+      while (true) {
+        // 번호,이름,이메일,패스워드,사진,전화번호,가입일
+        memberList.add(Member.valueOf(in2.nextLine()));
+        
+      }
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+      
+    } catch (IOException e) {
+      e.printStackTrace();
+      
+    } catch (NoSuchElementException e) {
+      System.out.println("멤버 데이터 로딩 완료!");
+    }
+  }
+  
+  private static void saveMemberData() {
+    try (FileWriter out = new FileWriter("member.csv");) {
+      for (Member member : memberList) {
+        out.write(String.format("%s,%s,%s,%s,%s,%s,%s\n",
+            member.getNo(),
+            member.getName(),
+            member.getEmail(),
+            member.getPassword(),
+            member.getPhoto(),
+            member.getTel(),
+            member.getRegisteredDate()));
+      }
+      
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+  
+  private static void loadBoardData() {
+    try (FileReader in = new FileReader("board.csv");
+        Scanner in2 = new Scanner(in)) {
+      while (true) {
+        // 번호,내용,작성일,조회수
+        boardList.add(Board.valueOf(in2.nextLine()));
+        
+      }
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+      
+    } catch (IOException e) {
+      e.printStackTrace();
+      
+    } catch (NoSuchElementException e) {
+      System.out.println("게시판 데이터 로딩 완료!");
+    }
+  }
+  
+  private static void saveBoardData() {
+    try (FileWriter out = new FileWriter("board.csv");) {
+      for (Board board : boardList) {
+        out.write(String.format("%s,%s,%s,%d\n",
+            board.getNo(),
+            board.getContents(),
+            board.getCreatedDate(),
+            board.getViewCount()));
+      }
+      
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 }
