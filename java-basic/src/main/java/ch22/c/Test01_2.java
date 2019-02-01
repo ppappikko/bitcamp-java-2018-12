@@ -15,11 +15,10 @@ public class Test01_2 {
       
       long start = System.currentTimeMillis();
       
-      byte[] buf = new byte[10000];
+      byte[] buf = new byte[1024];
       int len = 0;
       
       while ((len = in.read(buf)) != -1) {
-        //
       }
       
       long end = System.currentTimeMillis();
