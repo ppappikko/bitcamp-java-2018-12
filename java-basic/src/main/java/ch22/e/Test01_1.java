@@ -16,26 +16,26 @@ public class Test01_1 {
     Score s2 = new Score("임꺽정", 90, 90, 90);
     Score s3 = new Score("유관순", 80, 80, 80);
     
-    try (FileOutputStream out = new FileOutputStream("score.data");
-        BufferedOutputStream out1 = new BufferedOutputStream(out);
-        DataOutputStream out2 = new DataOutputStream(out1)) {
+    try (DataOutputStream out = new DataOutputStream(
+        new BufferedOutputStream(
+        new FileOutputStream("score.data")))) {
       
-      out2.writeUTF(s1.getName());
-      out2.writeInt(s1.getKor());
-      out2.writeInt(s1.getEng());
-      out2.writeInt(s1.getMath());
+      out.writeUTF(s1.getName());
+      out.writeInt(s1.getKor());
+      out.writeInt(s1.getEng());
+      out.writeInt(s1.getMath());
       
-      out2.writeUTF(s2.getName());
-      out2.writeInt(s2.getKor());
-      out2.writeInt(s2.getEng());
-      out2.writeInt(s2.getMath());
+      out.writeUTF(s2.getName());
+      out.writeInt(s2.getKor());
+      out.writeInt(s2.getEng());
+      out.writeInt(s2.getMath());
       
-      out2.writeUTF(s3.getName());
-      out2.writeInt(s3.getKor());
-      out2.writeInt(s3.getEng());
-      out2.writeInt(s3.getMath());
+      out.writeUTF(s3.getName());
+      out.writeInt(s3.getKor());
+      out.writeInt(s3.getEng());
+      out.writeInt(s3.getMath());
       
-      out2.flush();
+      out.flush();
       
     } catch (Exception e) {
       e.printStackTrace();

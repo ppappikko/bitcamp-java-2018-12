@@ -16,16 +16,16 @@ public class Test01_2 {
     Score s2 = null;
     Score s3 = null;
     
-    try (FileInputStream in = new FileInputStream("score.data");
-        BufferedInputStream in1 = new BufferedInputStream(in);
-        DataInputStream in2 = new DataInputStream(in1)) {
+    try (DataInputStream in = new DataInputStream(
+        new BufferedInputStream(
+        new FileInputStream("score.data")))) {
       
       s1 =
-          new Score(in2.readUTF(), in2.readInt(), in2.readInt(), in2.readInt());
+          new Score(in.readUTF(), in.readInt(), in.readInt(), in.readInt());
       s2 =
-          new Score(in2.readUTF(), in2.readInt(), in2.readInt(), in2.readInt());
+          new Score(in.readUTF(), in.readInt(), in.readInt(), in.readInt());
       s3 =
-          new Score(in2.readUTF(), in2.readInt(), in2.readInt(), in2.readInt());
+          new Score(in.readUTF(), in.readInt(), in.readInt(), in.readInt());
       
     } catch (Exception e) {
       e.printStackTrace();

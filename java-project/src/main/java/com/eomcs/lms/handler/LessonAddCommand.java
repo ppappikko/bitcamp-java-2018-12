@@ -14,6 +14,7 @@ public class LessonAddCommand implements Command {
     this.list = list;
   }
 
+  @Override
   public void execute() {
     Lesson lesson = new Lesson();
 
