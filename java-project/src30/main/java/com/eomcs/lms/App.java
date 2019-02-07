@@ -1,4 +1,10 @@
 package com.eomcs.lms;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -6,7 +12,6 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Scanner;
 import java.util.Stack;
-import com.eomcs.lms.context.ApplicationContextListener;
 import com.eomcs.lms.domain.Board;
 import com.eomcs.lms.domain.Lesson;
 import com.eomcs.lms.domain.Member;
@@ -26,80 +31,41 @@ import com.eomcs.lms.handler.MemberDeleteCommand;
 import com.eomcs.lms.handler.MemberDetailCommand;
 import com.eomcs.lms.handler.MemberListCommand;
 import com.eomcs.lms.handler.MemberUpdateCommand;
-import com.eomcs.lms.listener.BoardDataLoaderListener;
-import com.eomcs.lms.listener.LessonDataLoaderListener;
-import com.eomcs.lms.listener.MemberDataLoaderListener;
 
 public class App {
 
-  // 사용할 리스너(옵저버)들을 담는 observers 리스트를 생성
-  static ArrayList<ApplicationContextListener> observers = new ArrayList<>();
+  static Scanner keyboard = new Scanner(System.in);
+  static Stack<String> commandHistory = new Stack<>();
+  static Queue<String> commandHistory2 = new LinkedList<>();
+  static ArrayList<Lesson> lessonList = new ArrayList<>();
+  static LinkedList<Member> memberList = new LinkedList<>();
+  static ArrayList<Board> boardList = new ArrayList<>();
 
-  // observers 리스트에 ApplicationContextListener 인터페이스를 구현한 클래스를 추가
-  static void addApplicationContextListener(ApplicationContextListener listener) {
-    observers.add(listener);
-  }
-
-  // 지금 이 App에서 사용할 객체들을 미리 준비해서 보관소에 저장한다. (context)
-  static HashMap<String, Object> context = new HashMap<>();
-
-  static {
-    context.put("keyboard", new Scanner(System.in));
-    context.put("commandHistory", new Stack<>());
-    context.put("commandHistory2", new LinkedList<>());
-    context.put("lessonList", new ArrayList<>());
-    context.put("memberList", new LinkedList<>());
-    context.put("boardList", new ArrayList<>());
-  }
-  
-  @SuppressWarnings("unchecked")
   public static void main(String[] args) {
-    
-    addApplicationContextListener(new LessonDataLoaderListener());
-    addApplicationContextListener(new MemberDataLoaderListener());
-    addApplicationContextListener(new BoardDataLoaderListener());
-    
-    for (ApplicationContextListener observer : observers) {
-      try {
-        observer.startApplication(context);
-      } catch (Exception e) {}
-    }
-    
-    Scanner keyboard = (Scanner) context.get("keyboard");
+
+    loadLessonData();
+    loadMemberData();
+    loadBoardData();
+
     Map<String,Command> commandMap = new HashMap<>();
-    
-    ArrayList<Lesson> lessonList =
-        (ArrayList<Lesson>) context.get("lessonList");
-    
     commandMap.put("/lesson/add", new LessonAddCommand(keyboard, lessonList));
     commandMap.put("/lesson/list", new LessonListCommand(keyboard, lessonList));
     commandMap.put("/lesson/detail", new LessonDetailCommand(keyboard, lessonList));
     commandMap.put("/lesson/update", new LessonUpdateCommand(keyboard, lessonList));
     commandMap.put("/lesson/delete", new LessonDeleteCommand(keyboard, lessonList));
 
-    LinkedList<Member> memberList =
-        (LinkedList<Member>) context.get("memberList");
-    
     commandMap.put("/member/add", new MemberAddCommand(keyboard, memberList));
     commandMap.put("/member/list", new MemberListCommand(keyboard, memberList));
     commandMap.put("/member/detail", new MemberDetailCommand(keyboard, memberList));
     commandMap.put("/member/update", new MemberUpdateCommand(keyboard, memberList));
     commandMap.put("/member/delete", new MemberDeleteCommand(keyboard, memberList));
 
-    ArrayList<Board> boardList =
-        (ArrayList<Board>) context.get("boardList");
-    
     commandMap.put("/board/add", new BoardAddCommand(keyboard, boardList));
     commandMap.put("/board/list", new BoardListCommand(keyboard, boardList));
     commandMap.put("/board/detail", new BoardDetailCommand(keyboard, boardList));
     commandMap.put("/board/update", new BoardUpdateCommand(keyboard, boardList));
     commandMap.put("/board/delete", new BoardDeleteCommand(keyboard, boardList));
-    
-    Stack<String> commandHistory =
-        (Stack<String>) context.get("commandHistory");
-    Queue<String> commandHistory2 =
-        (Queue<String>) context.get("commandHistory2");
-    
+
     while (true) {
       String command = prompt();
 
@@ -137,13 +103,13 @@ public class App {
 
     keyboard.close();
 
+    saveLessonData();
+    saveMemberData();
+    saveBoardData();
   }
 
   @SuppressWarnings("unchecked")
   private static void printCommandHistory() {
-    Stack<String> commandHistory =
-        (Stack<String>) context.get("commandHistory");
-    
     Stack<String> temp = (Stack<String>) commandHistory.clone();
 
     while (temp.size() > 0) {
@@ -153,9 +119,6 @@ public class App {
 
   @SuppressWarnings("unchecked")
   private static void printCommandHistory2() {
-    Queue<String> commandHistory2 =
-        (Queue<String>) context.get("commandHistory2");
-    
     Queue<String> temp = (Queue<String>) ((LinkedList<String>) commandHistory2).clone();
 
     while (temp.size() > 0) {
@@ -164,12 +127,88 @@ public class App {
   }
 
   private static String prompt() {
-    Scanner keyboard =
-        (Scanner) context.get("keyboard");
-    
     System.out.print("명령> ");
     return keyboard.nextLine().toLowerCase();
   }
 
+  @SuppressWarnings("unchecked")
+  private static void loadLessonData() {
+    try (ObjectInputStream in = new ObjectInputStream(
+        new BufferedInputStream(
+            new FileInputStream("lesson3.data")))){
+      
+      lessonList = (ArrayList<Lesson>) in.readObject();
+      
+    } catch (Exception e) {
+      System.out.println("수업 데이터를 읽는 중 오류 발생: " + e.toString());
+      lessonList = new ArrayList<>();
+    }
+  }
 
+  private static void saveLessonData() {
+    try (ObjectOutputStream out = new ObjectOutputStream(
+        new BufferedOutputStream(
+            new FileOutputStream("lesson3.data")))) {
+
+      // 파일 형식: 번호,수업명,설명,시작일,종료일,총수업시간,일수업시간
+      out.writeObject(lessonList);
+
+    } catch (Exception e) {
+      System.out.println("수업 데이터를 쓰는 중 오류 발생: " + e.toString());
+    }
+  }
+
+  @SuppressWarnings("unchecked")
+  private static void loadMemberData() {
+    try (ObjectInputStream in = new ObjectInputStream(
+        new BufferedInputStream(
+            new FileInputStream("member2.data")))){
+      
+      memberList = (LinkedList<Member>) in.readObject();
+      
+    } catch (Exception e) {
+      System.out.println("회원 데이터를 읽는 중 오류 발생: " + e.toString());
+      memberList = new LinkedList<>();
+    } 
+  }
+
+  private static void saveMemberData() {
+    try (ObjectOutputStream out = new ObjectOutputStream(
+        new BufferedOutputStream(
+            new FileOutputStream("member2.data")))) {
+
+      // 파일 형식: 번호,이름,이메일,암호,사진,전화,가입일
+      out.writeObject(memberList);
+      
+    } catch (Exception e) {
+      System.out.println("회원 데이터를 쓰는 중 오류 발생: " + e.toString());
+    }
+  }
+
+  @SuppressWarnings("unchecked")
+  private static void loadBoardData() {
+    try (ObjectInputStream in = new ObjectInputStream(
+        new BufferedInputStream(
+            new FileInputStream("board2.data")))){
+      
+      boardList = (ArrayList<Board>) in.readObject();
+      
+    } catch (Exception e) {
+      System.out.println("게시글 데이터를 읽는 중 오류 발생: " + e.toString());
+      boardList = new ArrayList<>();
+    }
+  }
+
+  private static void saveBoardData() {
+    try (ObjectOutputStream out = new ObjectOutputStream(
+        new BufferedOutputStream(
+            new FileOutputStream("board2.data")));) {
+
+      // 파일 형식: 번호,내용,등록일,조회수
+      out.writeObject(boardList);
+      
+    } catch (Exception e) {
+      System.out.println("게시글 데이터를 쓰는 중 오류 발생: " + e.toString());
+    }
+  }
 }
