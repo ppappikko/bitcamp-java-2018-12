@@ -22,6 +22,7 @@ public class Client3 {
       System.out.println("서버와 연결되었음!");
       
       File file = new File("temp/test.mp3");
+      
       try (BufferedInputStream fileIn = new BufferedInputStream(
           new FileInputStream(file))) {
         

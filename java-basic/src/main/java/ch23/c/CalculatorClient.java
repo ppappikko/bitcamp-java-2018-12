@@ -1,10 +1,7 @@
 // 계산기 클라이언트 만들기 : 최소 +, -, *, /, % 연산자는 지원한다.
 package ch23.c;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
@@ -30,36 +27,40 @@ public class CalculatorClient {
   public static void main(String[] args) {
 
     try (Socket socket = new Socket("localhost", 8888);
-        DataOutputStream out = new DataOutputStream(
-            new BufferedOutputStream(socket.getOutputStream()));
-        DataInputStream in = new DataInputStream(
-            new BufferedInputStream(socket.getInputStream()))) {
+        PrintWriter out = new PrintWriter(socket.getOutputStream());
+        Scanner in = new Scanner(socket.getInputStream())) {
 
       try (Scanner keyboard = new Scanner(System.in)) {
         System.out.println("서버와 연결됨!");
-
+        
+        String response = in.nextLine();
+        System.out.println(response);
+        response = in.nextLine();
+        System.out.println(response);
+        response = in.nextLine();
+        System.out.println(response);
+        
         while (true) {
-          System.out.println(in.readUTF());
-          if (in.readUTF().equals("")) {
-            break;
-          }
-        }
-        while (true) {
+          System.out.print("> ");
+          String input = keyboard.nextLine();
 
-          while (true) {
-            System.out.print("> ");
-            String input = keyboard.nextLine();
-            out.writeUTF(input);
+          if (input.equalsIgnoreCase("quit")) {
+            out.println(input);
             out.flush();
-
-            if (input.length() != 0) {
-              break;
-            }
+            break;
+            
+          } else {
+            out.println(input);
+            out.flush();
           }
-
-          int response = in.readInt();
+          
+          
+          response = in.nextLine();
           System.out.println("결과는 " + response + "입니다.");
         }
+        
+        System.out.println(in.nextLine());
+        
       }
 
 
