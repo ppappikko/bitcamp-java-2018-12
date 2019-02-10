@@ -56,7 +56,7 @@ public class CalculatorClient {
           
           
           response = in.nextLine();
-          System.out.println("결과는 " + response + "입니다.");
+          System.out.println(response);
         }
         
         System.out.println(in.nextLine());

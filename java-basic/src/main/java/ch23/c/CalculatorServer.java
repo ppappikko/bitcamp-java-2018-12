@@ -36,6 +36,7 @@ public class CalculatorServer {
             out.println("안녕히 가세요!");
             out.flush();
             break;
+            
           } else {
 
             int result = compute(requests);
@@ -46,7 +47,7 @@ public class CalculatorServer {
               out.flush();
             } else {
 
-              out.println(result);
+              out.println("결과는 " + result + "입니다.");
               out.flush();
               System.out.println("결과 값 보냄!");
             }
