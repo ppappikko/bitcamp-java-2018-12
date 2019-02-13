@@ -1,4 +1,4 @@
-// 7단계: lesson, member, board
+// 5단계: 받은 객체를 컬렉션에 저장하고 컬렉션에 저장된 객체를 클라이언트로 보내기
 package com.eomcs.lms;
 
 import java.io.ObjectInputStream;
@@ -6,16 +6,11 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import com.eomcs.lms.domain.Board;
-import com.eomcs.lms.domain.Lesson;
 import com.eomcs.lms.domain.Member;
 
 public class ServerApp {
   
   static ArrayList<Member> members = new ArrayList<>();
-  static ArrayList<Lesson> lessons = new ArrayList<>();
-  static ArrayList<Board> boards = new ArrayList<>();
-  
   static ObjectInputStream in;
   static ObjectOutputStream out;
   
@@ -43,35 +38,32 @@ public class ServerApp {
             String request = in.readUTF();
             System.out.println(request);
             
-            MemberCommand.in = in;
-            MemberCommand.out = out;
-            
-            LessonCommand.in = in;
-            LessonCommand.out = out;
-            
-            BoardCommand.in = in;
-            BoardCommand.out = out;
-            
-            // .startsWith("x") - x값으로 시작하는 문장에 대해 true를 반환
-            if (request.startsWith("/member/")) {
-              MemberCommand.service(request);
-              
-            } else if (request.startsWith("/lesson/")) {
-              LessonCommand.service(request);
-              
-            } else if (request.startsWith("/board/")) {
-              BoardCommand.service(request);
-              
-            } else if (request.equals("quit")) {
-              quit();
-              break loop;
-              
-            } else {
-              out.writeUTF("FAIL");
+            switch (request) {
+              case "quit":
+                quit();
+                break loop;
+              case "add":
+                add();
+                break;
+              case "list":
+                list();
+                break;
+              default:
+                out.writeUTF("이 명령을 처리할 수 없음!");
             }
             out.flush();
             
           } // while
+          
+          /*
+          // 클라이언트에서 serialize해서 보내온 Member 객체의 내용을 출력하라!
+          Member member = (Member) in.readObject();
+          members.add(member);
+          
+          // 그리고 즉시 클라이언트로 Member 객체를 serialize하여 보내라!
+          out.writeObject(member);
+          out.flush();
+          */
           
         } catch (Exception e) {
           e.printStackTrace();
@@ -91,4 +83,13 @@ public class ServerApp {
     out.flush();
   }
   
+  static void add() throws Exception {
+    members.add((Member)in.readObject());
+    out.writeUTF("OK");
+  }
+  
+  static void list() throws Exception {
+    out.writeObject(members);
+  }
+
 }
