@@ -63,10 +63,6 @@ public class ServerApp {
 
           System.out.println("클라이언트와 연결되었음.");
 
-          // 다른 메서드와 공유하기 위해 스태틱 변수에 담는다.
-          ServerApp.in = in;
-          ServerApp.out = out;
-
           loop: while (true) {
             String request = in.readUTF();
             System.out.println(request);

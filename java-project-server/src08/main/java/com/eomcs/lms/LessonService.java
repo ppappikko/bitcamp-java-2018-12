@@ -63,10 +63,10 @@ public class LessonService {
     out.flush();
     int no = in.readInt();
 
-    for (Lesson m : lessons) {
-      if (m.getNo() == no) {
+    for (Lesson l : lessons) {
+      if (l.getNo() == no) {
         out.writeUTF("OK");
-        out.writeObject(m);
+        out.writeObject(l);
         return;
       }
     }
@@ -98,8 +98,8 @@ public class LessonService {
     int no = in.readInt();
 
     int index = 0;
-    for (Lesson m : lessons) {
-      if (m.getNo() == no) {
+    for (Lesson l : lessons) {
+      if (l.getNo() == no) {
         lessons.remove(index);
         out.writeUTF("OK");
         return;

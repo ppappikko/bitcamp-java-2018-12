@@ -63,10 +63,10 @@ public class BoardService {
     out.flush();
     int no = in.readInt();
 
-    for (Board m : boards) {
-      if (m.getNo() == no) {
+    for (Board b : boards) {
+      if (b.getNo() == no) {
         out.writeUTF("OK");
-        out.writeObject(m);
+        out.writeObject(b);
         return;
       }
     }
@@ -80,8 +80,8 @@ public class BoardService {
     Board board = (Board) in.readObject();
 
     int index = 0;
-    for (Board m : boards) {
-      if (m.getNo() == board.getNo()) {
+    for (Board b : boards) {
+      if (b.getNo() == board.getNo()) {
         boards.set(index, board);
         out.writeUTF("OK");
         return;

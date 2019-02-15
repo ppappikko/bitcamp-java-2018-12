@@ -5,16 +5,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import com.eomcs.lms.domain.Board;
-import com.eomcs.lms.domain.Lesson;
-import com.eomcs.lms.domain.Member;
 
 public class ServerApp {
-  
-  static ArrayList<Member> members = new ArrayList<>();
-  static ArrayList<Lesson> lessons = new ArrayList<>();
-  static ArrayList<Board> boards = new ArrayList<>();
   
   static ObjectInputStream in;
   static ObjectOutputStream out;
