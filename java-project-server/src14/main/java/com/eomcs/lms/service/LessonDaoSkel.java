@@ -6,11 +6,11 @@ import java.io.ObjectOutputStream;
 import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.domain.Lesson;
 
-public class LessonService implements Service {
+public class LessonDaoSkel implements Service {
 
   LessonDao lessonDao;
 
-  public LessonService(LessonDao lessonDao) {
+  public LessonDaoSkel(LessonDao lessonDao) {
     this.lessonDao = lessonDao;
   }
 
