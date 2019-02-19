@@ -19,12 +19,10 @@ public class MemberDeleteCommand implements Command {
     
     try {
       memberDao.delete(no);
-      System.out.println("회원을 삭제했습니다.");
+      System.out.println("삭제했습니다.");
       
     } catch (Exception e) {
-      
+      System.out.printf("실행 오류! : %s\n", e.getMessage());
     }
-    
   }
-  
 }

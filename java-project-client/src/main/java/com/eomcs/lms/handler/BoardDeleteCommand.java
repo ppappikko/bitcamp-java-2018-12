@@ -6,7 +6,7 @@ public class BoardDeleteCommand implements Command {
   
   Scanner keyboard;
   BoardDao boardDao;
-
+  
   public BoardDeleteCommand(Scanner keyboard, BoardDao boardDao) {
     this.keyboard = keyboard;
     this.boardDao = boardDao;
@@ -16,15 +16,13 @@ public class BoardDeleteCommand implements Command {
   public void execute() {
     System.out.print("번호? ");
     int no = Integer.parseInt(keyboard.nextLine());
-    
+
     try {
       boardDao.delete(no);
-      System.out.println("게시글을 삭제했습니다.");
+      System.out.println("삭제했습니다.");
       
     } catch (Exception e) {
-      System.out.printf("게시글 삭제 오류! : %s\n", e.getMessage());
+      System.out.printf("실행 오류! : %s\n", e.getMessage());
     }
-    
   }
-  
 }

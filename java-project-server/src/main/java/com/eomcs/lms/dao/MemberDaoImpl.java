@@ -1,20 +1,20 @@
-// 데이터 처리 관련 코드를 별도의 클래스로 분리
+// 프록시 패턴에서 실제 일을 하는 클래스 - 인터페이스 구현
 package com.eomcs.lms.dao;
 
 import java.util.List;
 import com.eomcs.lms.domain.Member;
 
-public class MemberDaoImpl extends AbstractDao<Member> implements MemberDao {
+public class MemberDaoImpl extends AbstractDao<Member> 
+  implements MemberDao {
 
   public MemberDaoImpl(String filepath) {
-    this.filePath = filepath;
+    this.filepath = filepath;
   }
 
   public void insert(Member member) {
     try {
       list.add(member);
       this.saveData();
-
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
@@ -25,9 +25,9 @@ public class MemberDaoImpl extends AbstractDao<Member> implements MemberDao {
   }
 
   public Member findByNo(int no) {
-    for (Member m : list) {
-      if (m.getNo() == no) {
-        return m;
+    for (Member obj : list) {
+      if (obj.getNo() == no) {
+        return obj;
       }
     }
     return null;
@@ -36,8 +36,8 @@ public class MemberDaoImpl extends AbstractDao<Member> implements MemberDao {
   public int update(Member member) {
     try {
       int index = 0;
-      for (Member m : list) {
-        if (m.getNo() == member.getNo()) {
+      for (Member obj : list) {
+        if (obj.getNo() == member.getNo()) {
           list.set(index, member);
           this.saveData();
           return 1;
@@ -45,7 +45,6 @@ public class MemberDaoImpl extends AbstractDao<Member> implements MemberDao {
         index++;
       }
       return 0;
-
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
@@ -54,8 +53,8 @@ public class MemberDaoImpl extends AbstractDao<Member> implements MemberDao {
   public int delete(int no) {
     try {
       int index = 0;
-      for (Member m : list) {
-        if (m.getNo() == no) {
+      for (Member obj : list) {
+        if (obj.getNo() == no) {
           list.remove(index);
           this.saveData();
           return 1;
@@ -63,10 +62,16 @@ public class MemberDaoImpl extends AbstractDao<Member> implements MemberDao {
         index++;
       }
       return 0;
-
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
   }
 
 }
+
+
+
+
+
+
+

@@ -1,4 +1,3 @@
-// 13단계: stateful 방식을 stateless 방식으로 전환하기
 package com.eomcs.lms.service;
 
 import java.io.ObjectInputStream;
@@ -9,13 +8,12 @@ import com.eomcs.lms.domain.Lesson;
 public class LessonDaoSkel implements Service {
 
   LessonDao lessonDao;
-
+  
   public LessonDaoSkel(LessonDao lessonDao) {
     this.lessonDao = lessonDao;
   }
-
-  public void execute(
-      String request, ObjectInputStream in, ObjectOutputStream out) throws Exception {
+  
+  public void execute(String request, ObjectInputStream in, ObjectOutputStream out) throws Exception {
 
     switch (request) {
       case "/lesson/add":
@@ -32,7 +30,7 @@ public class LessonDaoSkel implements Service {
         break;
       case "/lesson/delete":
         delete(in, out);
-        break;
+        break;  
       default:
         out.writeUTF("FAIL");
     }
@@ -50,7 +48,6 @@ public class LessonDaoSkel implements Service {
     out.writeUTF("OK");
     out.flush();
     out.writeUTF("OK");
-
     out.writeUnshared(lessonDao.findAll());
   }
 
@@ -59,14 +56,14 @@ public class LessonDaoSkel implements Service {
     out.flush();
     int no = in.readInt();
 
-    Lesson l = lessonDao.findByNo(no);
-    if (l == null) {
+    Lesson obj = lessonDao.findByNo(no);
+    if (obj == null) { 
       out.writeUTF("FAIL");
       return;
     }
 
     out.writeUTF("OK");
-    out.writeObject(l);
+    out.writeObject(obj);
   }
 
   private void update(ObjectInputStream in, ObjectOutputStream out) throws Exception {
@@ -78,7 +75,7 @@ public class LessonDaoSkel implements Service {
       out.writeUTF("FAIL");
       return;
     }
-
+    
     out.writeUTF("OK");
   }
 
@@ -88,11 +85,18 @@ public class LessonDaoSkel implements Service {
     int no = in.readInt();
 
     if (lessonDao.delete(no) == 0) {
-      out.writeUTF("FAIL");
+      out.writeUTF("FAIL");    
       return;
     }
-
+    
     out.writeUTF("OK");
   }
 
 }
+
+
+
+
+
+
+

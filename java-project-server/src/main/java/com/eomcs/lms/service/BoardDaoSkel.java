@@ -1,4 +1,3 @@
-// 13단계: stateful 방식을 stateless 방식으로 전환하기
 package com.eomcs.lms.service;
 
 import java.io.ObjectInputStream;
@@ -8,16 +7,14 @@ import com.eomcs.lms.domain.Board;
 
 public class BoardDaoSkel implements Service {
 
-  // BoardService가 작업을 수행할 때 사용할 객체(의존 객체; dependency)
   BoardDao boardDao;
-
+  
   public BoardDaoSkel(BoardDao boardDao) {
     this.boardDao = boardDao;
   }
-
-  public void execute(
-      String request, ObjectInputStream in, ObjectOutputStream out) throws Exception {
-
+  
+  public void execute(String request, ObjectInputStream in, ObjectOutputStream out) throws Exception {
+    
     switch (request) {
       case "/board/add":
         add(in, out);
@@ -33,7 +30,7 @@ public class BoardDaoSkel implements Service {
         break;
       case "/board/delete":
         delete(in, out);
-        break;
+        break;  
       default:
         out.writeUTF("FAIL");
     }
@@ -51,7 +48,6 @@ public class BoardDaoSkel implements Service {
     out.writeUTF("OK");
     out.flush();
     out.writeUTF("OK");
-
     out.writeUnshared(boardDao.findAll());
   }
 
@@ -60,14 +56,14 @@ public class BoardDaoSkel implements Service {
     out.flush();
     int no = in.readInt();
 
-    Board b = boardDao.findByNo(no);
-    if (b == null) {
+    Board obj = boardDao.findByNo(no);
+    if (obj == null) { 
       out.writeUTF("FAIL");
       return;
     }
 
     out.writeUTF("OK");
-    out.writeObject(b);
+    out.writeObject(obj);
   }
 
   private void update(ObjectInputStream in, ObjectOutputStream out) throws Exception {
@@ -79,7 +75,7 @@ public class BoardDaoSkel implements Service {
       out.writeUTF("FAIL");
       return;
     }
-
+    
     out.writeUTF("OK");
   }
 
@@ -89,7 +85,7 @@ public class BoardDaoSkel implements Service {
     int no = in.readInt();
 
     if (boardDao.delete(no) == 0) {
-      out.writeUTF("FAIL");
+      out.writeUTF("FAIL");    
       return;
     }
     
@@ -97,3 +93,10 @@ public class BoardDaoSkel implements Service {
   }
 
 }
+
+
+
+
+
+
+

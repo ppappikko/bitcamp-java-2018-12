@@ -17,17 +17,14 @@ public class MemberListCommand implements Command {
   @Override
   public void execute() {
     try {
-      List<Member> members = (List<Member>) memberDao.findAll();
-      
+      List<Member> members = memberDao.findAll();
       for (Member member : members) {
         System.out.printf("%3d, %-4s, %-20s, %-15s, %s\n", 
             member.getNo(), member.getName(), 
             member.getEmail(), member.getTel(), member.getRegisteredDate());
       }
-      
     } catch (Exception e) {
-      System.out.printf("회원 목록 출력 오류! : %s\n", e.getMessage());
+      System.out.printf("실행 오류! : %s\n", e.getMessage());
     }
-    
   }
 }

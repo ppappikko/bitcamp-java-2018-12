@@ -17,10 +17,9 @@ public class MemberDetailCommand implements Command {
   public void execute() {
     System.out.print("번호? ");
     int no = Integer.parseInt(keyboard.nextLine());
-    
+
     try {
-      Member member = (Member) memberDao.findByNo(no);
-      
+      Member member = memberDao.findByNo(no);
       System.out.printf("이름: %s\n", member.getName());
       System.out.printf("이메일: %s\n", member.getEmail());
       System.out.printf("암호: %s\n", member.getPassword());
@@ -29,9 +28,8 @@ public class MemberDetailCommand implements Command {
       System.out.printf("가입일: %s\n", member.getRegisteredDate());
       
     } catch (Exception e) {
-      System.out.printf("회원 상세 정보 출력 오류! : %s\n", e.getMessage());
+      System.out.printf("실행 오류! : %s\n", e.getMessage());
     }
-    
-  }
 
+  }
 }

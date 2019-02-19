@@ -7,7 +7,7 @@ public class BoardUpdateCommand implements Command {
   
   Scanner keyboard;
   BoardDao boardDao;
-
+  
   public BoardUpdateCommand(Scanner keyboard, BoardDao boardDao) {
     this.keyboard = keyboard;
     this.boardDao = boardDao;
@@ -20,7 +20,7 @@ public class BoardUpdateCommand implements Command {
 
     try {
       Board board = boardDao.findByNo(no);
-      
+    
       // 기존 값 복제
       Board temp = board.clone();
       
@@ -31,11 +31,10 @@ public class BoardUpdateCommand implements Command {
       
       boardDao.update(temp);
       
-      System.out.println("게시글을 변경했습니다.");
+      System.out.println("변경했습니다.");
       
     } catch (Exception e) {
-      System.out.println("변경 중 오류 발생!");
+      System.out.printf("실행 오류! : %s\n", e.getMessage());
     }
   }
-  
 }
