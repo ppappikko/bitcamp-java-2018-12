@@ -1,4 +1,8 @@
-// 15단계: 여러 클라이언트 요청을 처리할 때의 문제점과 해결책(멀티 스레드 적용)
+// 16단계: DAO에 JDBC 적용하기
+// => 현재 프로젝트에 mariadb JDBC 드라이버를 추가한다.
+// => 수업(Lesson), 회원(Member), 게시물(Board) 정보를 저장할 테이블을 생성한다.
+// => BoardDaoImpl, MemberDaoImpl, LessonDaoImpl 클래스에 JDBC 를 적용한다.
+
 package com.eomcs.lms;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -7,27 +11,13 @@ import java.util.Queue;
 import java.util.Scanner;
 import java.util.Stack;
 import com.eomcs.lms.dao.BoardDao;
-import com.eomcs.lms.dao.LessonDao;
-import com.eomcs.lms.dao.MemberDao;
+import com.eomcs.lms.dao.BoardDaoImpl;
 import com.eomcs.lms.handler.BoardAddCommand;
 import com.eomcs.lms.handler.BoardDeleteCommand;
 import com.eomcs.lms.handler.BoardDetailCommand;
 import com.eomcs.lms.handler.BoardListCommand;
 import com.eomcs.lms.handler.BoardUpdateCommand;
 import com.eomcs.lms.handler.Command;
-import com.eomcs.lms.handler.LessonAddCommand;
-import com.eomcs.lms.handler.LessonDeleteCommand;
-import com.eomcs.lms.handler.LessonDetailCommand;
-import com.eomcs.lms.handler.LessonListCommand;
-import com.eomcs.lms.handler.LessonUpdateCommand;
-import com.eomcs.lms.handler.MemberAddCommand;
-import com.eomcs.lms.handler.MemberDeleteCommand;
-import com.eomcs.lms.handler.MemberDetailCommand;
-import com.eomcs.lms.handler.MemberListCommand;
-import com.eomcs.lms.handler.MemberUpdateCommand;
-import com.eomcs.lms.proxy.BoardDaoProxy;
-import com.eomcs.lms.proxy.LessonDaoProxy;
-import com.eomcs.lms.proxy.MemberDaoProxy;
 
 public class App {
 
@@ -38,22 +28,24 @@ public class App {
   public void service() {
 
     Map<String,Command> commandMap = new HashMap<>();
-
-    LessonDao lessonDao = new LessonDaoProxy("localhost", 8888, "/lesson");
+    
+    /*
+    LessonDao lessonDao = new LessonDaoImpl();
     commandMap.put("/lesson/add", new LessonAddCommand(keyboard, lessonDao));
     commandMap.put("/lesson/list", new LessonListCommand(keyboard, lessonDao));
     commandMap.put("/lesson/detail", new LessonDetailCommand(keyboard, lessonDao));
     commandMap.put("/lesson/update", new LessonUpdateCommand(keyboard, lessonDao));
     commandMap.put("/lesson/delete", new LessonDeleteCommand(keyboard, lessonDao));
 
-    MemberDao memberDao = new MemberDaoProxy("localhost", 8888, "/member");
+    MemberDao memberDao = new MemberDaoImpl();
     commandMap.put("/member/add", new MemberAddCommand(keyboard, memberDao));
     commandMap.put("/member/list", new MemberListCommand(keyboard, memberDao));
     commandMap.put("/member/detail", new MemberDetailCommand(keyboard, memberDao));
     commandMap.put("/member/update", new MemberUpdateCommand(keyboard, memberDao));
     commandMap.put("/member/delete", new MemberDeleteCommand(keyboard, memberDao));
-
-    BoardDao boardDao = new BoardDaoProxy("localhost", 8888, "/board");
+    */
+    
+    BoardDao boardDao = new BoardDaoImpl();
     commandMap.put("/board/add", new BoardAddCommand(keyboard, boardDao));
     commandMap.put("/board/list", new BoardListCommand(keyboard, boardDao));
     commandMap.put("/board/detail", new BoardDetailCommand(keyboard, boardDao));

@@ -29,9 +29,11 @@ public class BoardUpdateCommand implements Command {
       if (input.length() > 0) 
         temp.setContents(input);
       
-      boardDao.update(temp);
-      
-      System.out.println("변경했습니다.");
+      if (boardDao.update(temp) == 1) {
+        System.out.println("변경했습니다.");
+      } else {
+        System.out.println("변경하지 못했습니다..");
+      }
       
     } catch (Exception e) {
       System.out.printf("실행 오류! : %s\n", e.getMessage());
