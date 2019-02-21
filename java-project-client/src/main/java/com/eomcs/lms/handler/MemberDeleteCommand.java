@@ -18,11 +18,16 @@ public class MemberDeleteCommand implements Command {
     int no = Integer.parseInt(keyboard.nextLine());
     
     try {
-      memberDao.delete(no);
-      System.out.println("삭제했습니다.");
+      if (memberDao.delete(no) == 0) {
+        System.out.println("해당 번호의 회원이 없습니다.");
+        return;
+      }
+      System.out.println("회원을 삭제했습니다.");
       
     } catch (Exception e) {
-      System.out.printf("실행 오류! : %s\n", e.getMessage());
+      
     }
+    
   }
+  
 }

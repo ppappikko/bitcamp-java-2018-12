@@ -1,12 +1,13 @@
-package com.eomcs.lms.dao;
+// DBMS 적용
+package com.eomcs.lms.dao.mariadb;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.domain.Board;
 
 // 서버쪽에 있는 BoardDaoImpl 객체를 대행할 클라이언트측 대행자 클래스 정의 
@@ -15,30 +16,29 @@ public class BoardDaoImpl implements BoardDao {
 
   public List<Board> findAll() {
 
-    List<Board> list = new ArrayList<>();
-
     try (Connection con = DriverManager.getConnection(
         "jdbc:mariadb://localhost/bitcampdb?user=bitcamp&password=1111")) {
 
-      try (Statement stmt = con.createStatement()) {
+      try (PreparedStatement stmt = con.prepareStatement(
+          "select board_id, conts, cdt, vw_cnt from lms_board"
+              + " order by board_id desc")) {
 
-        try (ResultSet rs = stmt.executeQuery(
-            "select * from p_board order by board_id desc")) {
+        try (ResultSet rs = stmt.executeQuery()) {
 
+          ArrayList<Board> list = new ArrayList<>();
           while (rs.next()) {
             Board board = new Board();
-            
             board.setNo(rs.getInt("board_id"));
-            board.setContents(rs.getString("contents"));
-            board.setCreatedDate(rs.getDate("created_date"));
-            board.setViewCount(rs.getInt("view_count"));
+            board.setContents(rs.getString("conts"));
+            board.setCreatedDate(rs.getDate("cdt"));
+            board.setViewCount(rs.getInt("vw_cnt"));
 
             list.add(board);
           }
+          return list;
         }
       }
-      return list;
-
+      
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
@@ -48,12 +48,12 @@ public class BoardDaoImpl implements BoardDao {
 
     try (Connection con = DriverManager.getConnection(
         "jdbc:mariadb://localhost/bitcampdb?user=bitcamp&password=1111")) {
+      
+      try (PreparedStatement stmt = con.prepareStatement(
+          "insert into lms_board(conts) values(?)")) {
 
-      try (Statement stmt = con.createStatement()) {
-
-        stmt.executeUpdate("insert into p_board(contents)"
-            + " values('" + board.getContents() + "')");
-
+        stmt.setString(1, board.getContents());
+        stmt.executeUpdate();
       }
 
     } catch (Exception e) {
@@ -63,28 +63,40 @@ public class BoardDaoImpl implements BoardDao {
 
   public Board findByNo(int no) {
 
-    Board board = new Board();
-
     try (Connection con = DriverManager.getConnection(
         "jdbc:mariadb://localhost/bitcampdb?user=bitcamp&password=1111")) {
+      
+      // 조회수 증가시키기
+      try (PreparedStatement stmt = con.prepareStatement(
+          "update lms_board set vw_cnt = vw_cnt + 1 where board_id = ?")) {
+        
+        stmt.setInt(1, no);
+        stmt.executeUpdate();
+        
+      }
+      
+      try (PreparedStatement stmt = con.prepareStatement(
+          "select board_id, conts, cdt, vw_cnt from lms_board where board_id = ?")) {
 
-      try (Statement stmt = con.createStatement()) {
+        stmt.setInt(1, no);
 
-        try (ResultSet rs = stmt.executeQuery(
-            "select * from p_board where board_id = " + no)) {
+        try (ResultSet rs = stmt.executeQuery()) {
 
           if (rs.next()) {
+            Board board = new Board();
 
-            board.setContents(rs.getString("contents"));
-            board.setCreatedDate(rs.getDate("created_date"));
-            board.setViewCount(rs.getInt("view_count") + 1);
+            board.setNo(rs.getInt("board_id"));
+            board.setContents(rs.getString("conts"));
+            board.setCreatedDate(rs.getDate("cdt"));
+            board.setViewCount(rs.getInt("vw_cnt"));
+            
+            return board;
 
           } else {
-            System.out.println("해당 번호의 게시물이 존재하지 않습니다.");
+            return null;
           }
         }
       }
-      return board;
 
     } catch (Exception e) {
       throw new RuntimeException(e);
@@ -97,20 +109,12 @@ public class BoardDaoImpl implements BoardDao {
         "jdbc:mariadb://localhost/bitcampdb?user=bitcamp&password=1111")) {
       
       try (PreparedStatement stmt = con.prepareStatement(
-          "update p_board set contents = ? where board_id = ?")) {
+          "update lms_board set conts = ? where board_id = ?")) {
         
         stmt.setString(1, board.getContents());
         stmt.setInt(2, board.getNo());
         
-        // PreparedStatement에서는 SQL 문을 서버에 보낼 때 파라미터로 전달하지 않는다.
-        int count = stmt.executeUpdate();
-        
-        if (count == 0) {
-          return 0;
-          
-        } else {
-          return 1;
-        }
+        return stmt.executeUpdate();
       }
       
     } catch (Exception e) {
@@ -123,17 +127,12 @@ public class BoardDaoImpl implements BoardDao {
     try (Connection con = DriverManager.getConnection(
         "jdbc:mariadb://localhost/bitcampdb?user=bitcamp&password=1111")) {
       
-      try (Statement stmt = con.createStatement()) {
+      try (PreparedStatement stmt = con.prepareStatement(
+          "delete from lms_board where board_id = ?")) {
         
-        // delete 문장은 executeUpdate()를 사용하여 서버에 전달한다.
-        int count = stmt.executeUpdate(
-            "delete from p_board where board_id = " + no);
+        stmt.setInt(1, no);
         
-        if (count == 0) {
-          return 0;
-        } else {
-          return 1;
-        }
+        return stmt.executeUpdate();
       }
       
     } catch (Exception e) {

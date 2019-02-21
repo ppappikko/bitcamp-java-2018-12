@@ -8,7 +8,7 @@ public class BoardListCommand implements Command {
 
   Scanner keyboard;
   BoardDao boardDao;
-  
+
   public BoardListCommand(Scanner keyboard, BoardDao boardDao) {
     this.keyboard = keyboard;
     this.boardDao = boardDao;
@@ -24,9 +24,8 @@ public class BoardListCommand implements Command {
             board.getNo(), board.getContents(), 
             board.getCreatedDate(), board.getViewCount());
       }
-      
     } catch (Exception e) {
-      System.out.printf("실행 오류! : %s\n", e.getMessage());
+      System.out.printf("게시글 목록 출력 오류! : %s\n", e.getMessage());
     }
   }
 
