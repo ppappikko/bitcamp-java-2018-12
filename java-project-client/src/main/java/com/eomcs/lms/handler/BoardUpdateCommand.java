@@ -20,15 +20,16 @@ public class BoardUpdateCommand implements Command {
 
     try {
       Board board = boardDao.findByNo(no);
-      if (board == null) {
-        System.out.println("해당 번호의 게시물이 없습니다.");
-        return;
-      }
+      
+      // 기존 값 복제
+      Board temp = board.clone();
       
       System.out.printf("내용? ");
-      board.setContents(keyboard.nextLine());
+      String input = keyboard.nextLine();
+      if (input.length() > 0) 
+        temp.setContents(input);
       
-      boardDao.update(board);
+      boardDao.update(temp);
       
       System.out.println("게시글을 변경했습니다.");
       

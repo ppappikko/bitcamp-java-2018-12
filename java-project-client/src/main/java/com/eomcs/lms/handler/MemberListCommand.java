@@ -20,9 +20,9 @@ public class MemberListCommand implements Command {
       List<Member> members = (List<Member>) memberDao.findAll();
       
       for (Member member : members) {
-        System.out.printf("%3d, %-4s, %-20s, %-15s\n", 
+        System.out.printf("%3d, %-4s, %-20s, %-15s, %s\n", 
             member.getNo(), member.getName(), 
-            member.getEmail(), member.getTel());
+            member.getEmail(), member.getTel(), member.getRegisteredDate());
       }
       
     } catch (Exception e) {
