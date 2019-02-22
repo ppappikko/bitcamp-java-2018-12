@@ -327,6 +327,20 @@
 - MariaDB 사용자 및 데이터베이스 생성
 
 ## 35일(2019-2-20)
+- JDBC 드라이버 준비 및 프로젝트에 등록
+- 연습용 게시판 테이블 생성
+- CRUD 기본 SQL : select, insert, update, delete
+- JDBC 프로그래밍
+    - java.sql.Driver 구현체 등록하기
+    - DBMS 연결하기, java.sql.Connection 구현체
+    - java.sql.Statement 구현체 사용법
+    - CRUD JDBC 코드 구현
+
+## 36일(2019-2-21)
+- 36단계 과제 풀이(java-project2/src01): DAO에 데이터베이스 적용
+- 36단계 과제 풀이(java-project2/src02): Connection 공유
+- 36단계 과제 풀이(java-project2/src03): Observer 패턴 적용
+
+## 37일(2019-2-22)
+- 37단계 과제풀이(java-project2-client, java-project2-server): Application Server 도입하기
 - 
-
-
