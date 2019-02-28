@@ -19,6 +19,7 @@ from memb cross join stnt;
          컬럼명 앞에 테이블명을 명시하여 구분하라!*/ 
 select memb.mno, name, stnt.mno, work, bank
 from memb cross join stnt;
+
 /* 예전 문법 */
 select memb.mno, name, stnt.mno, work, bank
 from memb, stnt;
@@ -28,7 +29,8 @@ from memb, stnt;
          테이블에 별명을 부여하고 
          그 별명을 사용하여 컬럼을 지정하라. */
 select m.mno, name, s.mno, work, bank
-from memb m cross join stnt s;         
+from memb m cross join stnt s;
+
 /* 예전 문법 */
 select m.mno, name, s.mno, work, bank
 from memb m, stnt s;
@@ -36,7 +38,8 @@ from memb m, stnt s;
 
 /* natural join: 같은 이름을 가진 컬럼 값을 기준으로 연결한다. */
 select m.mno, name, s.mno, work, bank
-from memb m natural join stnt s;   
+from memb m natural join stnt s;
+
 /* 예전 문법 */
 select m.mno, name, s.mno, work, bank
 from memb m, stnt s
@@ -52,7 +55,7 @@ where m.mno=s.mno;
    join ~ using (기준컬럼) 을 사용하여 
    두 테이블의 데이터를 연결할 때 기준이 될 컬럼을 지정한다.*/
 select m.mno, name, s.mno, work, bank
-from memb m join stnt s using (mno);            
+from memb m join stnt s using (mno);
       
 /* natural join 의 문제점 2      
    => 두 테이블에 같은 이름의 컬럼이 없을 경우
@@ -64,7 +67,8 @@ from memb m join stnt s using (mno);
    이럴 경우 join ~ on 컬럼a=컬럼b 문법을 사용하여
    각 테이블의 어떤 컬럼과 값을 비교할 것인지 지정하라!*/
 select m.mno, name, s.mno, work, bank
-from memb m inner join stnt s on m.mno=s.mno;       
+from memb m inner join stnt s on m.mno=s.mno;
+
 /* inner는 생략 가능하다 */
 select m.mno, name, s.mno, work, bank
 from memb m join stnt s on m.mno=s.mno;
@@ -128,12 +132,12 @@ from lect l left outer join room r on l.rno=r.rno;
     왜? memb테이블의 데이터와 stnt 테이블의 데이터를 
     추출할 때 mno가 같은 데이터만 추출한다.*/
 select m.mno, name, work
-from memb m join stnt s on m.mno=s.mno;                     
-      
+from memb m join stnt s on m.mno=s.mno;
+
 /* 상대 테이블(stnt)에 연결할 대상(데이터)이 없더라도
     select에서 추출하는 방법 */
 select m.mno, name, work
-from memb m left outer join stnt s on m.mno=s.mno;           
+from memb m left outer join stnt s on m.mno=s.mno;
 
 
 

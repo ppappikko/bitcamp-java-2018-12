@@ -52,7 +52,7 @@ select
     (select name from room where rno=l.rno) as room_name, 
     (select name from memb where mno=l.mno) as manager_name,
     (select posi from mgr where mno=l.mno) as manager_posi
-from lect l
+from lect l;
 
 /* 2단계: 위에서 준비한 select 결과를 가상 테이블로 사용하여 
              기존의 lect_appl 테이블과 조인한다.*/
@@ -104,13 +104,13 @@ from lect_appl la
 /* 과장 또는 대리 매니저가 담당하고 있는 수강 신청만 추출하기 */
 select 
     la.lano, 
-    (select titl from lect where lno=la.lno) as lect_title, 
+    -- (select titl from lect where lno=la.lno) as lect_title, 
     (select name from memb where mno=la.mno) as stud_name,
     lec.titl,
     lec.room_name,
-    lec.manager_no,
+    -- lec.manager_no,
     lec.manager_name,
-    lec.manager_posi
+    lec.manager_posi 
 from lect_appl la 
     join lect2 as lec on la.lno=lec.lno 
 where
