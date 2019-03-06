@@ -14,7 +14,7 @@ public abstract class AbstractCommand implements Command {
     try {
       execute(new Response(in, out));
     } catch (Exception e) {
-      out.printf("실행 오류! : %s\n", e.getMessage());
+      throw new RuntimeException(e);
     }
   }
   
