@@ -28,7 +28,7 @@ import com.eomcs.lms.context.ApplicationContextListener;
 import com.eomcs.lms.handler.Command;
 
 public class ServerApp {
-
+ 
   // ApplicationContextListener(옵저버) 목록을 보관할 객체
   ArrayList<ApplicationContextListener> listeners = new ArrayList<>();
 
