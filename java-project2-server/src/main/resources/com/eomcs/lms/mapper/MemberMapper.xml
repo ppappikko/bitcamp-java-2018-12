@@ -18,13 +18,17 @@
     <result column="cdt" property="registeredDate"/>
   </resultMap>
   
-  <select id="findAll" resultMap="memberMap">
-    select
+  <sql id="default-columns">
       member_id,
       name,
       email,
-      tel,
-      cdt
+      cdt,
+      tel
+  </sql>
+  
+  <select id="findAll" resultMap="memberMap">
+    select
+      <include refid="default-columns"/>
     from
       lms_member
     order
@@ -33,11 +37,7 @@
   
   <select id="findByNo" resultMap="memberMap" parameterType="int">
     select
-      member_id,
-      name,
-      email,
-      cdt,
-      tel,
+      <include refid="default-columns"/>,
       photo
     from
       lms_member
@@ -45,19 +45,15 @@
       member_id = #{value}
   </select>
   <select id="findByKeyword" resultMap="memberMap" parameterType="string">
+    <bind name="pattern1" value="'%' + _parameter + '%'"/>
     select
-      member_id,
-      name,
-      email,
-      cdt,
-      tel,
-      photo
+      <include refid="default-columns"/>
     from
       lms_member
     <where>
-      or name like concat('%', #{value}, '%')
-      or email like concat('%', #{value}, '%')
-      or tel like concat('%', #{value}, '%')
+      or name like #{pattern1}
+      or email like #{pattern1}
+      or tel like #{pattern1}
     </where>
     order by name asc
   </select>
@@ -68,7 +64,11 @@
       email,
       pwd,
       tel,
-      photo)
+      photo)member_id,
+      name,
+      email,
+      tel,
+      cdt
     values(
       #{name},
       #{email},
