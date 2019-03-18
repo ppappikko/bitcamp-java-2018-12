@@ -13,6 +13,10 @@ repositories {
 
 // 프로젝트에서 사용할 외부 라이브러리 정보
 dependencies {
+
+    // Spring IoC 컨테이너
+    compile group: 'org.springframework', name: 'spring-context', version: '5.1.5.RELEASE'
+    
     // mybatis persistence framework
     compile group: 'org.mybatis', name: 'mybatis', version: '3.5.0'
     
