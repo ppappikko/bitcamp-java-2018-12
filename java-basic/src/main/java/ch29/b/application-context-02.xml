@@ -23,6 +23,8 @@
        다른 문자는 안된다. -->
   <bean name="c9,c10,c11" class="ch29.b.Car"/>
   <bean name="c12;c13;c14" class="ch29.b.Car"/>
+  
+  <!-- 콜론(:)으로 구분 불가 -->
   <bean name="c15:c16:c17" class="ch29.b.Car"/>
   
   <!-- id와 name이 모두 있으면,

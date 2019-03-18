@@ -1,7 +1,6 @@
 // 여러 개의 인터페이스를 구현한 객체를 자동 생성하기 - 람다(lambda) 적용
 package ch27.a;
 
-import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
