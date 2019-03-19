@@ -20,6 +20,7 @@
   <!-- 자바 코드로 표현해보면 다음과 같다.
        Car obj = CarFactory.create("equus");
        beanContainer.put("c1", obj); -->
+  
   <!-- java.sql.Date 객체 만들기
        Date.valueOf() 의 리턴 값이 d1 이름으로 저장된다.
    -->

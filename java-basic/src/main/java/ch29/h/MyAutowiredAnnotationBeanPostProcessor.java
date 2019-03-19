@@ -32,7 +32,7 @@ public class MyAutowiredAnnotationBeanPostProcessor implements BeanPostProcessor
     // 생성된 객체를 기록한다.
     // => 나중에 의존 객체를 주입할 때 사용할 것이다.
     beans.put(bean.getClass(), bean);
-    
+
     // 항상 어떤 객체가 생성되면 자신을 원하는 세터가 있는지 검사하여
     // 그 메서드를 호출해야 한다.
     callAutowiredMethod(bean);
@@ -57,10 +57,13 @@ public class MyAutowiredAnnotationBeanPostProcessor implements BeanPostProcessor
       if (isRegistered(paramType)) {
         // 세터가 원하는 파라미터 값이 있다면 즉시 호출하여 의존 객체를 주입한다.
         try {
+          
           m.invoke(bean, getDependency(paramType));
+          
         } catch (Exception e) {
           e.printStackTrace();
         }
+      
       } else {
         // 세터가 원하는 파라미터 값이 없다면,
         // 일단 그 값이 나타날 때까지 호출을 연기하자!
@@ -79,39 +82,41 @@ public class MyAutowiredAnnotationBeanPostProcessor implements BeanPostProcessor
   private Object getDependency(Class<?> type) {
     return beans.get(type);
   }
-  
+
   public void addAutowiredMethod(
       Class<?> paramType, AutowiredMethod autowiredMethod) {
-    
+
     List<AutowiredMethod> methods = autowiredMethodMap.get(paramType);
     if (methods == null) { // 파라미터 타입의 값을 원하는 세터가 등록된 적이 없다면, 
       methods = new ArrayList<>(); // 새 목록을 만들고
       autowiredMethodMap.put(paramType, methods); // 일단 맵에 저장한다.
     }
-    
+
     // 지정된 파라미터 타입의 값을 원하는 세터를 기존 목록에 추가한다.
     methods.add(autowiredMethod);
-    
+
   }
-  
+
   private void callAutowiredMethod(Object paramValue) {
-    
+
     // 이 타입의 빈을 원하는 세터 목록을 꺼낸다.
     List<AutowiredMethod> setters = autowiredMethodMap.get(paramValue.getClass());
-    
+
     if (setters == null) { // 없다면 호출하지 않는다.
       return;
     }
-    
+
     for (AutowiredMethod setter : setters) {
       try {
-      setter.method.invoke(setter.object, paramValue);
+
+        setter.method.invoke(setter.object, paramValue);
+
       } catch (Exception e) {
         e.printStackTrace();
       }
-    }
+    } // for
   }
-  
+
   class AutowiredMethod {
     Object object; // 메서드를 호출할 때 사용할 인스턴스
     Method method; // @Autowired 가 붙은 메서드
