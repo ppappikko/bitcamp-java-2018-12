@@ -23,6 +23,6 @@
     <context:annotation-config> 태그를 자동으로 활성화 시킨다.
     따라서 <context:annotation-config> 태그를 선언하지 않아도 된다.
    -->
-  <context:component-scan base-package="ch29.i"></context:component-scan>
+  <context:component-scan base-package="ch29.i"/>
   
 </beans>

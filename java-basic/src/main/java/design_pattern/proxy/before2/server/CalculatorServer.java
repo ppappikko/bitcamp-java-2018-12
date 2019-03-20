@@ -20,10 +20,10 @@ public class CalculatorServer {
     try (ServerSocket ss = new ServerSocket(8888)) {
       System.out.println("서버 실행 중....");
       
+      // 실제 계산 작업을 수행할 객체
+      Calculator calc = new Calculator();
+      
       while (true) {
-        
-        // 실제 계산 작업을 수행할 객체
-        Calculator calc = new Calculator();
         
         try (Socket s = ss.accept();
             DataInputStream in = new DataInputStream(s.getInputStream());

@@ -20,11 +20,8 @@ import org.springframework.transaction.PlatformTransactionManager;
 public class DatabaseConfig {
   
   @Value("${jdbc.driver}") String jdbcDriver;
-  
   @Value("${jdbc.url}") String jdbcUrl;
-  
   @Value("${jdbc.username}") String jdbcUsername;
-  
   @Value("${jdbc.password}") String jdbcPassword;
   
   // DB 커넥션풀 객체 준비
