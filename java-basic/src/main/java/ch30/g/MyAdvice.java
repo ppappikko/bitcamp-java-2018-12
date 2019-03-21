@@ -1,4 +1,4 @@
-package ch30.f;
+package ch30.g;
 
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -24,7 +24,7 @@ public class MyAdvice {
   // => 메서드 선언부에 붙여야 한다.
   // => 메서드의 파라미터는 없고, 구현을 비워둔다.
   // => 이 메서드는 pointcut을 지정하는 용도로만 사용한다.
-  @Pointcut("execution(* ch30.f.X.*(..))")
+  @Pointcut("execution(* ch30.g.X.*(..))")
   public void calculatorOperation() {}
   
   /*
