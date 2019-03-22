@@ -55,6 +55,7 @@ public class PhotoBoardCommand {
         }
         PhotoFile file = new PhotoFile();
         file.setFilePath(filePath);
+        file.setPhotoBoardNo(board.getNo());// 사진 게시물을 입력한 후 자동 생성된 PK 값을 꺼낸다.
         
         files.add(file);
       } // while
