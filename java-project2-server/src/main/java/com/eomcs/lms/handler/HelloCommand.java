@@ -7,7 +7,7 @@ import com.eomcs.lms.context.RequestMapping;
 public class HelloCommand{
 
   @RequestMapping("/hello")
-  public void hello(Response response) {
+  public void hello(ServletResponse response) {
     response.println("안녕하세요!");
 
   }
