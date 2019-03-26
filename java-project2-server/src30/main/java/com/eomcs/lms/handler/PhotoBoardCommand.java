@@ -2,8 +2,6 @@ package com.eomcs.lms.handler;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import org.springframework.stereotype.Component;
 import com.eomcs.lms.context.RequestMapping;
 import com.eomcs.lms.domain.PhotoBoard;
@@ -20,19 +18,19 @@ public class PhotoBoardCommand {
   }
 
   @RequestMapping("/photoboard/list")
-  public void list(ServletRequest request, ServletResponse response) throws Exception {
+  public void list(ServletRequest request, ServletResponse response) {
     List<PhotoBoard> boards = photoBoardService.list(0, null);
     
     PrintWriter out = response.getWriter();
     out.println("<html><head><title>사진 목록</title></head>");
     out.println("<body><h1>사진 목록</h1>");
-    out.println("<p><a href='form'>새 사진</a></p>");
+    out.println("<p><a href='/photoboard/form'>새 사진</a></p>");
     out.println("<table border='1'>");
     out.println("<tr><th>번호</th><th>제목</th><th>등록일</th><th>조회수</th><th>수업</th></tr>");
     
     for (PhotoBoard board : boards) {
       out.println(String.format(
-          "<tr><td>%d</td><td><a href='detail?no=%1$d'>%s</a>"
+          "<tr><td>%d</td><td><a href='/photoboard/detail?no=%1$d'>%s</a>"
           + "</td><td>%s</td><td>%d</td><td>%d</td></tr>",
             board.getNo(), 
             board.getTitle(), 
@@ -42,7 +40,7 @@ public class PhotoBoardCommand {
     }
     out.println("</table>");
     
-    out.println("<form action='search'>");
+    out.println("<form action='/photoboard/search'>");
     out.println("수업번호: <input type='text' name='lessonNo'> ");
     out.println("검색어: <input type='text' name='keyword'> ");
     out.println("<button type='submit'>검색</button>");
@@ -52,7 +50,7 @@ public class PhotoBoardCommand {
   }
   
   @RequestMapping("/photoboard/add")
-  public void add(ServletRequest request, ServletResponse response) throws Exception {
+  public void add(ServletRequest request, ServletResponse response) {
     PhotoBoard board = new PhotoBoard();
     board.setTitle(request.getParameter("title"));
     board.setLessonNo(Integer.parseInt(request.getParameter("lessonNo")));
@@ -60,7 +58,7 @@ public class PhotoBoardCommand {
     ArrayList<PhotoFile> files = new ArrayList<>();
     for (int i = 0; i < 5; i++) {
       String filename = request.getParameter("photo" + i);
-      if (filename.length() == 0)
+      if (filename == null)
         continue;
       
       PhotoFile file = new PhotoFile();
@@ -72,7 +70,7 @@ public class PhotoBoardCommand {
     PrintWriter out = response.getWriter();
     out.println("<html><head>"
         + "<title>사진 등록</title>"
-        + "<meta http-equiv='Refresh' content='1;url=list'>"
+        + "<meta http-equiv='Refresh' content='1;url=/photoboard/list'>"
         + "</head>");
     out.println("<body><h1>사진 등록</h1>");
     
@@ -102,7 +100,7 @@ public class PhotoBoardCommand {
       out.println("<p>해당 사진을 찾을 수 없습니다.</p>");
       
     } else {
-      out.println("<form action='update'>");
+      out.println("<form action='/photoboard/update'>");
       out.println("<table border='1'>");
       out.println("<tr>");
       out.println("  <th>번호</th>");
@@ -149,8 +147,8 @@ public class PhotoBoardCommand {
       out.println("</td></tr>");
       out.println("</table>");
       
-      out.println("<p><a href='list'>목록</a>"
-          + " <a href='delete?no=" + board.getNo() + "'>삭제</a>"
+      out.println("<p><a href='/photoboard/list'>목록</a>"
+          + " <a href='/photoboard/delete?no=" + board.getNo() + "'>삭제</a>"
           + " <button type='submit'>변경</button>"
           + "<p>");
       out.println("</form>");
@@ -168,7 +166,7 @@ public class PhotoBoardCommand {
     ArrayList<PhotoFile> files = new ArrayList<>();
     for (int i = 0; i < 5; i++) {
       String filename = request.getParameter("photo" + i);
-      if (filename.length() == 0)
+      if (filename == null)
         continue;
       
       PhotoFile file = new PhotoFile();
@@ -181,7 +179,7 @@ public class PhotoBoardCommand {
     PrintWriter out = response.getWriter();
     out.println("<html><head>"
         + "<title>사진 변경</title>"
-        + "<meta http-equiv='Refresh' content='1;url=list'>"
+        + "<meta http-equiv='Refresh' content='1;url=/photoboard/list'>"
         + "</head>");
     out.println("<body><h1>사진 변경</h1>");
     
@@ -200,7 +198,7 @@ public class PhotoBoardCommand {
     PrintWriter out = response.getWriter();
     out.println("<html><head>"
         + "<title>사진 삭제</title>"
-        + "<meta http-equiv='Refresh' content='1;url=list'>"
+        + "<meta http-equiv='Refresh' content='1;url=/photoboard/list'>"
         + "</head>");
     out.println("<body><h1>사진 삭제</h1>");
     
@@ -219,7 +217,7 @@ public class PhotoBoardCommand {
   }
   
   @RequestMapping("/photoboard/search")
-  public void search(ServletRequest request, ServletResponse response) throws Exception {
+  public void search(ServletRequest request, ServletResponse response) {
     int lessonNo = 0;
     try {
       lessonNo = Integer.parseInt(request.getParameter("lessonNo"));
@@ -229,7 +227,7 @@ public class PhotoBoardCommand {
     String searchWord = null;
     try {
       String keyword = request.getParameter("keyword");
-      if (keyword.length() > 0)
+      if (keyword != null)
         searchWord = keyword;
     } catch (Exception e) { // 사용자가 검색어를 입력하지 않았으면 무시한다.
     }
@@ -244,7 +242,7 @@ public class PhotoBoardCommand {
     
     for (PhotoBoard board : boards) {
       out.println(String.format(
-          "<tr><td>%d</td><td><a href='detail?no=%1$d'>%s</a>"
+          "<tr><td>%d</td><td><a href='/photoboard/detail?no=%1$d'>%s</a>"
           + "</td><td>%s</td><td>%d</td><td>%d</td></tr>",
             board.getNo(), 
             board.getTitle(), 
@@ -253,7 +251,7 @@ public class PhotoBoardCommand {
             board.getLessonNo()));
     }
     out.println("</table>");
-    out.println("<p><a href='list'>목록</a></p>");
+    out.println("<p><a href='/photoboard/list'>목록</a></p>");
     out.println("</body>");
     out.println("</html>");
   }
@@ -266,7 +264,7 @@ public class PhotoBoardCommand {
     out.println("<head><title>새 사진</title></head>");
     out.println("<body>");
     out.println("<h1>새 사진</h1>");
-    out.println("<form action='add'>");
+    out.println("<form action='/photoboard/add'>");
     out.println("<table border='1'>");
     out.println("<tr>");
     out.println("  <th>사진 제목</th>");
@@ -302,7 +300,7 @@ public class PhotoBoardCommand {
     out.println("</table>");
     out.println("<p>");
     out.println("  <button type='submit'>등록</button>");
-    out.println("  <a href='list'>목록</a>");
+    out.println("  <a href='/photoboard/list'>목록</a>");
     out.println("</p>");
     out.println("</form>");
     out.println("</body>");
