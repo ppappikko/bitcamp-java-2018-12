@@ -18,7 +18,7 @@ public class Servlet01 extends HttpServlet {
   protected void service(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     
- // 테스트 방법:
+    // 테스트 방법:
     // => http://localhost:8080/java-web/ex07/s1?a=100&b=200&op=+
     // => http://localhost:8080/java-web/ex07/s1?a=100&b=200&op=-
     // => http://localhost:8080/java-web/ex07/s1?a=100&b=200&op=*
@@ -46,7 +46,7 @@ public class Servlet01 extends HttpServlet {
       //      요청배달자 = request.getRequestDispatcher(다른 서블릿 URL);
       RequestDispatcher 요청배달자 = request.getRequestDispatcher("/ex07/s2");
       
-   // 이 서블릿이 지금까지 출력한 것은 모두 취소된다.
+      // 이 서블릿이 지금까지 출력한 것은 모두 취소된다.
       // => 엥! 출력된 것이 최소될 수 있나요?
       // => PrintWriter 객체를 통해 출력하는 내용은 즉시 웹 브라우저로 전달되는 것이 아니다.
       //    내부 출력 버퍼(보통 8KB 크기)에 보관된다.
