@@ -25,9 +25,6 @@ public class InitServlet extends HttpServlet {
   // Command 객체와 그와 관련된 객체를 보관하고 있는 빈 컨테이너
   public static ApplicationContext iocContainer;
 
-  // 클라이언트 요청을 처리할 메서드 정보가 들어 있는 객체
-  RequestMappingHandlerMapping handlerMapping;
-  
   @Override
   public void init() throws ServletException {
     // 이 클래스의 인스턴스가 생성된 후 톰캣이 제일 처음으로 호출하는 메서드
@@ -36,9 +33,6 @@ public class InitServlet extends HttpServlet {
     logger.info("Spring IoC 컨테이너 준비");
     iocContainer = new AnnotationConfigApplicationContext(AppConfig.class);
     printBeans();
-
-    logger.info("RequestMappingHandlerMapping 객체 준비");
-    handlerMapping = iocContainer.getBean(RequestMappingHandlerMapping.class);
 
   }
 

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -12,7 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import com.eomcs.lms.InitServlet;
+import org.springframework.context.ApplicationContext;
 import com.eomcs.lms.domain.Lesson;
 import com.eomcs.lms.domain.PhotoBoard;
 import com.eomcs.lms.domain.PhotoFile;
@@ -36,8 +37,10 @@ public class PhotoBoardAddServlet extends HttpServlet {
       HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
 
-    LessonService lessonService =
-        InitServlet.iocContainer.getBean(LessonService.class);
+    ServletContext sc = this.getServletContext();
+    ApplicationContext iocContainer =
+        (ApplicationContext) sc.getAttribute("iocContainer");
+    LessonService lessonService = iocContainer.getBean(LessonService.class);
     
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
@@ -103,8 +106,10 @@ public class PhotoBoardAddServlet extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    PhotoBoardService photoBoardService =
-        InitServlet.iocContainer.getBean(PhotoBoardService.class);
+    ServletContext sc = this.getServletContext();
+    ApplicationContext iocContainer =
+        (ApplicationContext) sc.getAttribute("iocContainer");
+    PhotoBoardService photoBoardService = iocContainer.getBean(PhotoBoardService.class);
 
     PhotoBoard board = new PhotoBoard();
     board.setTitle(request.getParameter("title"));
@@ -143,7 +148,8 @@ public class PhotoBoardAddServlet extends HttpServlet {
       out.println("<p>최소 한 개의 사진 파일을 등록해야 합니다.</p>");
     } else {
       photoBoardService.add(board);
-      out.println("<p>저장하였습니다.</p>");
+      response.sendRedirect("list");
+      return;
     }
     out.println("</body></html>");
   }
