@@ -34,7 +34,11 @@ public class LessonDetailServlet extends HttpServlet {
     PrintWriter out = response.getWriter();
     
     out.println("<html><head><title>수업 조회</title></head>");
-    out.println("<body><h1>수업 조회</h1>");
+    out.println("<body>");
+    
+    request.getRequestDispatcher("/header").include(request, response);
+    
+    out.println("<h1>수업 조회</h1>");
     
     if (lesson == null) {
       out.println("<p>해당 번호의 수입이 없습니다.</p>");
