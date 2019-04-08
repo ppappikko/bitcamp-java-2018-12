@@ -81,12 +81,14 @@ public class PhotoBoardAddServlet extends HttpServlet {
 
     response.setContentType("text/html;charset=UTF-8");
 
-    request.setAttribute("error.title", "사진 등록");
+    request.setAttribute("error.title", "사진 등록 오류");
     
     if (board.getLessonNo() == 0) {
       request.setAttribute("error.content", "사진 또는 파일을 등록할 수업을 선택하세요.");
     } else if (files.size() == 0) {
       request.setAttribute("error.content", "최소 한 개의 사진 파일을 등록해야 합니다.");
+    } else if (board.getTitle().length() == 0) {
+      request.setAttribute("error.content", "사진 게시물 제목을 입력하세요.");
     } else {
       photoBoardService.add(board);
       response.sendRedirect("list");

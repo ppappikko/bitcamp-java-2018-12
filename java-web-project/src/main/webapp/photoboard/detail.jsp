@@ -1,14 +1,8 @@
 <%@page import="java.util.List"%>
-<%@page import="com.eomcs.lms.domain.PhotoBoard"%>
 <%@page import="com.eomcs.lms.domain.PhotoFile"%>
 <%@page import="com.eomcs.lms.domain.Lesson"%>
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
   trimDirectiveWhitespaces="true"%>
-<%
-  PhotoBoard board = (PhotoBoard) request.getAttribute("board");
-  List<PhotoFile> files = board.getFiles();
-  List<Lesson> lessons = (List<Lesson>) request.getAttribute("lessons");
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +12,11 @@
 
   <jsp:include page="/header.jsp" />
 
-  <h1>사진 조회(JSP)</h1>
+  <h1>사진 조회(JSP2)</h1>
+
+<jsp:useBean scope="request" id="board" type="com.eomcs.lms.domain.PhotoBoard"/>
+<jsp:useBean scope="request" id="lessons" type="java.util.List<Lesson>"/>
+
   <form action='update' method='post' enctype='multipart/form-data'>
     <table border='1'>
       <tr>
@@ -80,16 +78,15 @@
         <th>사진</th>
         <td>
           <%
-            for (PhotoFile file : files) {
-          %> <img src='../upload/photoboard/<%=file.getFilePath()%>'
-          style='height: 80px'> <%
-   }
- %>
+          List<PhotoFile> files = board.getFiles();
+          for (PhotoFile file : files) {%>
+          <img src='../upload/photoboard/<%=file.getFilePath()%>' style='height: 80px'> <%}%>
         </td>
       </tr>
     </table>
     <p>
-      <a href='list'>목록</a> <a href='delete?no=<%=board.getNo()%>'>삭제</a>
+      <a href='list'>목록</a>
+      <a href='delete?no=<%=board.getNo()%>'>삭제</a>
       <button type='submit'>변경</button>
     <p>
   </form>

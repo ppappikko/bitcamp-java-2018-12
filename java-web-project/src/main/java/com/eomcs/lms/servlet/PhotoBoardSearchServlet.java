@@ -43,7 +43,7 @@ public class PhotoBoardSearchServlet extends HttpServlet {
     
     request.setAttribute("list", boards);
     response.setContentType("text/html;charset=UTF-8");
-    request.getRequestDispatcher("/photoboard/list.jsp").include(request, response);
+    request.getRequestDispatcher("/photoboard/search.jsp").include(request, response);
   }
   
 }

@@ -19,6 +19,9 @@ dependencies {
     // 멀티파트 형식의 데이터 처리 라이브러리
     compile group: 'commons-fileupload', name: 'commons-fileupload', version: '1.4'
     
+    // JSTL 명세를 구현한 라이브러리
+    compile group: 'javax.servlet', name: 'jstl', version: '1.2'
+
     
     testImplementation 'junit:junit:4.12'
 }

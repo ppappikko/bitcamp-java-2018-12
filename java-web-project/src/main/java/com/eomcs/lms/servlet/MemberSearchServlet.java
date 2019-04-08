@@ -30,7 +30,7 @@ public class MemberSearchServlet extends HttpServlet {
 
     request.setAttribute("list", members);
     response.setContentType("text/html;charset=UTF-8");
-    request.getRequestDispatcher("/member/list.jsp").include(request, response);
+    request.getRequestDispatcher("/member/search.jsp").include(request, response);
   }
   
 }

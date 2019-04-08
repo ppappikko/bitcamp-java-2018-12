@@ -1,10 +1,6 @@
 <%@page import="com.eomcs.lms.domain.Member"%>
-<%@page import="java.util.List"%>
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
   trimDirectiveWhitespaces="true"%>
-<%
-  List<Member> list = (List<Member>) request.getAttribute("list");
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +10,7 @@
 
   <jsp:include page="/header.jsp" />
 
-  <h1>회원 목록(JSP)</h1>
+  <h1>회원 목록(JSP2)</h1>
   <p>
     <a href='add'>새 회원</a>
   </p>
@@ -26,6 +22,9 @@
       <th>전화</th>
       <th>가입일</th>
     </tr>
+
+<jsp:useBean scope="request" id="list" type="java.util.List<Member>"/>
+
     <%for (Member member : list) {%>
     <tr>
       <td><%=member.getNo()%></td>
@@ -39,7 +38,6 @@
   <form action='search'>
     <input type='text' name='keyword'>
     <button type='submit'>검색</button><br>
-    <a href='list'>목록</a>
   </form>
 </body>
 </html>

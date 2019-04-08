@@ -1,11 +1,6 @@
-<%@page import="java.util.List"%>
-<%@page import="com.eomcs.lms.domain.PhotoBoard"%>
 <%@page import="com.eomcs.lms.domain.Lesson"%>
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
   trimDirectiveWhitespaces="true"%>
-<%
-  List<Lesson> lessons = (List<Lesson>) request.getAttribute("lessons");
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +10,10 @@
 
 <jsp:include page="/header.jsp" />
 
-  <h1>새 사진(JSP)</h1>
+  <h1>새 사진(JSP2)</h1>
+
+<jsp:useBean scope="request" id="lessons" type="java.util.List<Lesson>"/>
+
   <form action='add' method='post' enctype='multipart/form-data'>
     <table border='1'>
       <tr>
