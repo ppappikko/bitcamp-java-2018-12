@@ -31,12 +31,10 @@ public class PhotoBoardDetailServlet extends HttpServlet {
     int no = Integer.parseInt(request.getParameter("no"));
     PhotoBoard board = photoBoardService.get(no);
     List<Lesson> lessons = lessonService.list();
-    
     request.setAttribute("board", board);
     request.setAttribute("lessons", lessons);
     
-    response.setContentType("text/html;charset=UTF-8");
-    
-    request.getRequestDispatcher("/photoboard/detail.jsp").include(request, response);
+    // 뷰 컴포넌트의 URL을 ServletRequest 보관소에 저장한다.
+    request.setAttribute("viewUrl", "/photoboard/detail.jsp");
   }
 }

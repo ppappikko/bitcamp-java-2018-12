@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.util.UUID;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +12,6 @@ import org.springframework.context.ApplicationContext;
 import com.eomcs.lms.domain.Member;
 import com.eomcs.lms.service.MemberService;
 
-@MultipartConfig(maxFileSize = 1024 * 1024 * 5)
 @WebServlet("/member/update")
 @SuppressWarnings("serial")
 public class MemberUpdateServlet extends HttpServlet {
@@ -44,13 +42,12 @@ public class MemberUpdateServlet extends HttpServlet {
     }
     
     if (memberService.update(member) != 0) {
-      response.sendRedirect("list");
-      return;
+      // 뷰 컴포넌트의 URL을 ServletRequest 보관소에 저장한다.
+      request.setAttribute("viewUrl", "redirect:list");
+      
+    } else {
+      request.setAttribute("error.title", "회원 변경");
+      request.setAttribute("error.content", "해당 번호의 회원이 없습니다.");
     }
-    
-    response.setContentType("text/html;charset=UTF-8");
-    request.setAttribute("error.title", "회원 변경");
-    request.setAttribute("error.content", "해당 번호의 회원이 없습니다.");
-    request.getRequestDispatcher("/error.jsp").include(request, response);
   }
 }

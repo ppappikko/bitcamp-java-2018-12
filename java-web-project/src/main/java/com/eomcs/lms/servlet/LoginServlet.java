@@ -1,5 +1,6 @@
 package com.eomcs.lms.servlet;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,29 +24,11 @@ public class LoginServlet extends HttpServlet {
       HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     
-    // 도대체 어느 페이지에서 이리로 보냈나?
-    // => 요청 헤더 Referer의 값을 세션에 보관한다.
-    //    로그인을 처리할 때 해당 페이지로 리다이렉트 할 것이다.
-    // => 웹 브라우저의 주소 창에 직접 URL을 지정한 경우에는
-    //    요청 헤더에 Referer가 없다.
     HttpSession session = request.getSession();
     session.setAttribute(REFERER_URL, request.getHeader("Referer"));
     
-    // 이메일 쿠키 값을 꺼내온다.
-    Cookie[] cookies = request.getCookies();
-    String email = "";
-    if (cookies != null) {
-      for (Cookie c : cookies) {
-        if (c.getName().equals("email")) {
-          email = c.getValue();
-          break;
-        }
-      }
-    }
-    request.setAttribute("email", email);
-    
-    response.setContentType("text/html;charset=UTF-8");
-    request.getRequestDispatcher("/auth/form.jsp").include(request, response);
+    // 뷰 컴포넌트의 URL을 ServletRequest 보관소에 저장한다.
+    request.setAttribute("viewUrl", "/auth/form.jsp");
   }
 
   @Override
@@ -58,11 +41,20 @@ public class LoginServlet extends HttpServlet {
     if (request.getParameter("saveEmail") != null) {
       cookie = new Cookie("email", request.getParameter("email"));
       cookie.setMaxAge(60 * 60 * 24 * 15); // 15일간 쿠키를 보관한다.
+      
+      // 프론트 컨트롤러를 도입하였기 때문에 경로를 따로 설정해야 한다.
+      cookie.setPath(getServletContext().getContextPath());
+      
     } else {
       cookie = new Cookie("email", "");
       cookie.setMaxAge(0); // 기존의 쿠키를 제거한다.
     }
-    response.addCookie(cookie);
+    
+    // 인클루딩 서블릿 쪽에서 쿠키를 추가할 수 없다.
+    // 추가는 프론트 컨트롤러에게 맡긴다.
+    ArrayList<Cookie> cookies = new ArrayList<>();
+    cookies.add(cookie);
+    request.setAttribute("cookies", cookies);
     
     // 도대체 어느 페이지에서 이리로 보냈나?
     System.out.println(request.getHeader("Referer"));
@@ -78,8 +70,8 @@ public class LoginServlet extends HttpServlet {
         request.getParameter("password"));
     
     if (member == null) {
-      response.setContentType("text/html;charset=UTF-8");
-      request.getRequestDispatcher("/auth/fail.jsp").include(request, response);
+      // 뷰 컴포넌트의 URL을 ServletRequest 보관소에 저장한다.
+      request.setAttribute("viewUrl", "/auth/fail.jsp");
       return;
     }
 
@@ -91,9 +83,11 @@ public class LoginServlet extends HttpServlet {
     // 로그인에 성공하면 다시 메인 화면으로 보낸다.
     String refererUrl = (String) session.getAttribute(REFERER_URL);
     if (refererUrl == null) {
-      response.sendRedirect(getServletContext().getContextPath());
+      // 뷰 컴포넌트의 URL을 ServletRequest 보관소에 저장한다.
+      request.setAttribute("viewUrl", "redirect:" + getServletContext().getContextPath());
     } else {
-      response.sendRedirect(refererUrl);
+      // 뷰 컴포넌트의 URL을 ServletRequest 보관소에 저장한다.
+      request.setAttribute("viewUrl", "redirect:" + refererUrl);
     }
   }
 

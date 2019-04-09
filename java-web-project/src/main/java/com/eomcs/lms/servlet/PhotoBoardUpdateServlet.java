@@ -63,14 +63,12 @@ public class PhotoBoardUpdateServlet extends HttpServlet {
     
     if (files.size() > 0) {
       photoBoardService.update(board);
-      response.sendRedirect("list");
-      return;
+      // 뷰 컴포넌트의 URL을 ServletRequest 보관소에 저장한다.
+      request.setAttribute("viewUrl", "redirect:list");
+      
+    } else {
+      request.setAttribute("error.title", "사진 변경");
+      request.setAttribute("error.content", "최소 한 개의 사진 파일을 등록해야 합니다.");
     }
-    
-    response.setContentType("text/html;charset=UTF-8");
-    request.setAttribute("error.title", "사진 변경");
-    request.setAttribute("error.content", "최소 한 개의 사진 파일을 등록해야 합니다.");
-    request.getRequestDispatcher("/error.jsp").include(request, response);
   }
-
 }

@@ -40,10 +40,10 @@ public class PhotoBoardSearchServlet extends HttpServlet {
     }
     
     List<PhotoBoard> boards = photoBoardService.list(lessonNo, searchWord);
-    
     request.setAttribute("list", boards);
-    response.setContentType("text/html;charset=UTF-8");
-    request.getRequestDispatcher("/photoboard/search.jsp").include(request, response);
+    
+    // 뷰 컴포넌트의 URL을 ServletRequest 보관소에 저장한다.
+    request.setAttribute("viewUrl", "/photoboard/search.jsp");
   }
   
 }
