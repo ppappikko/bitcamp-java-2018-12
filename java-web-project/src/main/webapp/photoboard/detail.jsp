@@ -1,4 +1,4 @@
-<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
   trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -13,7 +13,7 @@
   <h1>사진 조회(JSP2 + EL + JSTL)</h1>
 <c:choose>
 <c:when test="${empty board}">
-  <p>해당 번호의 사진 게시물이 없습니다.</p>
+  <p>해당 사진을 찾을 수 없습니다.</p>
 </c:when>
 <c:otherwise>
   <form action='update' method='post' enctype='multipart/form-data'>
@@ -37,13 +37,13 @@
       <tr>
         <th>수업</th>
         <td><select name='lessonNo'>
-<c:forEach items="${lessons}" var="lesson">
-            <option value='${lesson.no}'
-              ${board.lessonNo == lesson.no ? "selected" : ""}>
-              ${lesson.title}(${lesson.startDate} ~
+          <c:forEach items="${lessons}" var="lesson">
+            <option value="${lesson.no}"
+              ${board.lessonNo == lesson.no ? "selected" : ""}>${lesson.title}(${lesson.startDate}
+              ~
               ${lesson.endDate})
             </option>
-</c:forEach>
+          </c:forEach>
         </select></td>
       </tr>
       <tr>
@@ -72,17 +72,19 @@
       <tr>
         <th>사진</th>
         <td>
-<c:set var="contextRootPath" value="${pageContext.servletContext.contextPath}"/>
-<c:forEach items="${board.files}" var="file">
-          <img src='${contextRootPath}/upload/photoboard/${file.filePath}' style='height: 80px'>
-</c:forEach>
+          <c:set var="contextRootPath" value="${pageContext.servletContext.contextPath}"></c:set>
+          <c:forEach items="${board.files}" var="file"> 
+            <img src='${contextRootPath}/upload/photoboard/${file.filePath}' style='height: 80px'> 
+          </c:forEach>
         </td>
       </tr>
     </table>
+
     <p>
       <a href='list'>목록</a>
       <a href='delete?no=${board.no}'>삭제</a>
       <button type='submit'>변경</button>
+      <a href='../../'>메인화면</a>
     <p>
   </form>
 </c:otherwise>
