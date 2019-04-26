@@ -15,14 +15,18 @@
 <div class="container">
   <h1>회원 목록</h1>
   <p><a href='form' class="btn btn-primary btn-sm">새 회원</a></p>
-  <table border='1'>
-    <tr>
-      <th>번호</th>
-      <th>이름</th>
-      <th>이메일</th>
-      <th>전화</th>
-      <th>가입일</th>
-    </tr>
+<div class="bit-list">
+<table class="table table-hover">
+<thead>
+  <tr>
+    <th scope="col">번호</th>
+    <th scope="col">이름</th>
+    <th scope="col">이메일</th>
+    <th scope="col">전화</th>
+    <th scope="col">가입일</th>
+  </tr>
+</thead>
+<tbody>
 <c:forEach items="${list}" var="member">
     <tr>
       <td>${member.no}</td>
@@ -32,12 +36,15 @@
       <td>${member.registeredDate}</td>
     </tr>
 </c:forEach>
-  </table>
-
-  <form action='search'>
-    <input type='text' name='keyword'>
+</tbody>
+</table>
+</div> <!-- .bit-list -->
+<form action='search'>
+  <div class="col-sm-4">
+    <input type="text" class="form-control" name='keyword'>
     <button type='submit'>검색</button>
-  </form>
+  </div>
+</form>
 </div> <!-- .container -->
 
 <jsp:include page="../javascript.jsp"/>
