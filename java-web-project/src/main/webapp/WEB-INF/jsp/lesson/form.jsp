@@ -17,38 +17,34 @@
   
   <div class="form-group row">
     <label for="title" class="col-sm-2 col-form-label">수업</label>
-    <div class="col-sm-8">
+    <div class="col-sm-10">
       <input type="text" class="form-control" id="title" name='title'>
     </div>
   </div>
   <div class="form-group row">
     <label for="contents" class="col-sm-2 col-form-label">내용</label>
-    <div class="col-sm-8">
+    <div class="col-sm-10">
       <textarea class="form-control" id="contents" name='contents'
                  rows='5'></textarea>
     </div>
   </div>
   <div class="form-group row">
     <label for="startDate" class="col-sm-2 col-form-label">시작일</label>
-    <div class="col-sm-8">
+    <div class="col-sm-4">
       <input type="date" class="form-control" id="startDate" name='startDate'>
     </div>
-  </div>
-  <div class="form-group row">
     <label for="endDate" class="col-sm-2 col-form-label">종료일</label>
-    <div class="col-sm-8">
+    <div class="col-sm-4">
       <input type="date" class="form-control" id="endDate" name='endDate'>
     </div>
   </div>
   <div class="form-group row">
     <label for="totalHours" class="col-sm-2 col-form-label">총 교육시간</label>
-    <div class="col-sm-8">
+    <div class="col-sm-4">
       <input type="number" class="form-control" id="totalHours" name='totalHours'>
     </div>
-  </div>
-  <div class="form-group row">
     <label for="dayHours" class="col-sm-2 col-form-label">일 교육시간</label>
-    <div class="col-sm-8">
+    <div class="col-sm-4">
       <input type="number" class="form-control" id="dayHours" name='dayHours'>
     </div>
   </div>

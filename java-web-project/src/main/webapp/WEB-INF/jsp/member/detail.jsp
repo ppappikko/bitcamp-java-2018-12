@@ -36,20 +36,6 @@
     </div>
   </div>
   <div class="form-group row">
-    <label for="name" class="col-sm-2 col-form-label">이름</label>
-    <div class="col-sm-8">
-      <input type="text" class="form-control" id="name" name='name'
-              value='${member.name}'>
-    </div>
-  </div>
-  <div class="form-group row">
-    <label for="name" class="col-sm-2 col-form-label">이름</label>
-    <div class="col-sm-8">
-      <input type="text" class="form-control" id="name" name='name'
-              value='${member.name}'>
-    </div>
-  </div>
-  <div class="form-group row">
     <label for="email" class="col-sm-2 col-form-label">이메일</label>
     <div class="col-sm-8">
       <input type="text" class="form-control" id="email" name='email'
@@ -63,35 +49,39 @@
     </div>
   </div>
   <div class="form-group row">
-    <c:set var="contextRootPath" value="${pageContext.servletContext.contextPath}"></c:set>
-      <c:if test="${empty member.photo}">
-          <img src='${contextRootPath}/images/default.jpg' style='height: 80px'><br>
-      </c:if>
-      <c:if test="${not empty member.photo}">
-          <img src='${contextRootPath}/upload/member/${member.photo}' style='height: 80px'><br>
-      </c:if>
     <label for="photoFile" class="col-sm-2 col-form-label">사진</label>
-    <div class="col-sm-8">
+    <div class="col-sm-6">
       <input type="file" class="form-control" id="photoFile" name='photoFile'>
     </div>
+    <c:set var="contextRootPath" value="${pageContext.servletContext.contextPath}"></c:set>
+      <c:if test="${empty member.photo}">
+          <img src="${contextRootPath}/images/default.jpg" class="img-thumbnail" style='height: 80px'>
+      </c:if>
+      <c:if test="${not empty member.photo}">
+          <img src="${contextRootPath}/upload/member/${member.photo}" class="img-thumbnail" style='height: 80px'>
+      </c:if>
   </div>
-  
-  
-  
-  
-      <tr>
-        <th>전화</th>
-        <td><input type='text' name='tel' value='${member.tel}'></td>
-      </tr>
-      <tr>
-        <th>가입일</th>
-        <td>${member.registeredDate}</td>
-      </tr>
-    </table>
-    <p>
-      <a href='.'>목록</a> <a href='delete/${member.no}'>삭제</a>
-      <button type='submit'>변경</button>
-    <p>
+  <div class="form-group row">
+    <label for="tel" class="col-sm-2 col-form-label">전화</label>
+    <div class="col-sm-8">
+      <input type="text" class="form-control" id="tel" name='tel'
+              value='${member.tel}'>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="registeredDate" class="col-sm-2 col-form-label">가입일</label>
+    <div class="col-sm-8">
+      <input type="date" class="form-control-plaintext" id="registeredDate"
+              value='${member.registeredDate}' readonly>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-sm-8">
+      <a class="btn btn-primary" href='.'>목록</a>
+      <a class="btn btn-primary" href='delete/${member.no}'>삭제</a>
+      <button class="btn btn-primary" type='submit'>변경</button>
+    </div>
+  </div>
   </form>
 </c:otherwise>
 </c:choose>

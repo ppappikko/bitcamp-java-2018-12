@@ -39,10 +39,21 @@
 </tbody>
 </table>
 </div> <!-- .bit-list -->
+<nav aria-label="목록 페이지 이동">
+  <ul class="pagination justify-content-center">
+    <li class="page-item ${pageNo <= 1 ? 'disabled' : ''}"><a class="page-link"
+        href="?pageNo=${pageNo - 1}&pageSize=${pageSize}">이전</a></li>
+    <li class="page-item active"><span class="page-link">${pageNo}</span></li>
+    <li class="page-item ${pageNo >= totalPage ? 'disabled' : ''}"><a class="page-link"
+        href="?pageNo=${pageNo + 1}&pageSize=${pageSize}">다음</a></li>
+  </ul>
+</nav>
 <form action='search'>
-  <div class="col-sm-4">
-    <input type="text" class="form-control" name='keyword'>
-    <button type='submit'>검색</button>
+  <div class="form-group row">
+    <div class="col-sm-4">
+      <input type="text" class="form-control" name='keyword'>
+    </div>
+    <button class="btn btn-primary" type='submit'>검색</button>
   </div>
 </form>
 </div> <!-- .container -->
