@@ -138,4 +138,63 @@
         - <mvc:annotation-driven/> 태그를 추가하라.
 - 기존의 CharacterEncodingFilter를 스프링의 필터로 교체한다.
     - 기존 필터 삭제
- 
+
+## src15 : Spring WebMVC 프레임워크에 XML 설정 적용
+- web.xml 변경
+    - ContextLoaderListener의 IoC 컨테이너가 사용할 XML 설정 파일을 지정
+    - DispatcherServlet의 IoC 컨테이너가 사용할 XML 설정 파일을 지정
+- IoC 컨테이너의 설정 파일 생성
+    - /WEB-INF/app-servlet.xml 파일 생성(DispatcherServlet의 IoC 컨테이너가 사용)
+    - /WEB-INF/application-context*.xml 파일 생성
+- 기존의 자바 config 클래스 파일 삭제
+- 페이지 컨트롤러 변경
+    - 페이지 컨트롤러의 자바 패키지 변경
+- JSP 변경
+    - /WEB-INF/jsp 디렉토리로 이전
+    - 기타 경로 조정
+- AppInitListener 생성
+    - Mybatis의 로그 팩토리 지정
+
+## src16 :  Spring WebMVC 프레임워크에 Java config 설정 적용
+- web.xml 변경 : DispatcherServlet 배치 정보 제거 
+    - WebApplicationInitializer 구현체 정의
+        - WebAppInitializer 클래스 정의
+        - web.xml에 DispatcherServlet을 배치하는 대신에 이 클래스에서 배치한다.
+    - DefaultWebConfig 클래스 정의
+         app-servlet.xml 설정을 이 클래스로 옮긴다.
+- web.xml 변경 : CharacterEncodingFilter 배치 정보 제거
+    - WebAppInitializer 클래스에 필터를 설정한다.
+- web.xml 변경 : ContextLoaderListener 배치 정보 제거
+    - 관련된 context-param 태그도 제거한다.
+    - AppConfig, DatabaseConfig, MybatisConfig를 추가한다.
+    - WebAppInitializer에서 getRootConfigClasses() 메서드를 오버라이딩 한다.
+
+## src17 : Bootstrap CSS 적용하기
+- 메인 화면을 출력하는 페이지 컨트롤러 추가
+    - HomeController 클래스 추가
+    - /WEB-INF/jsp/home.jsp 추가
+    - /index.html 삭제
+- 컨텍스트 루트 경로 정보를 ServletContext에 저장
+    - AppInitListener 클래스 변경
+- /WEB-INF/jsp/header.jsp 변경
+    - Bootstrap CSS 적용
+- /WEB-INF/jsp/javascript.jsp 추가
+    - Bootstrap에서 사용할 자바스크립트 파일을 HTML에 삽입하기
+- 목록에 페이징 처리
+    - 컨트롤러, 서비스, DAO, SQL 맵퍼 파일, JSP 변경
+- JSP에 Bootstrap CSS 적용
+    - /WEB-INF/jsp/../*.jsp 파일 변경
+
+## src18 : npm으로 외부 라이브러리 관리하기 
+- nodejs 설치
+- npm 으로 CSS, JavaScript 라이브러리 설치
+- /WEB-INF/jsp/commonCss.jsp 파일 추가
+- /WEB-INF/jsp/../*.jsp 파일 변경
+
+## src19 : Front-end 와 Back-end 를 분리하기
+- build.gradle 변경
+    - jackson-databind JSON 라이브러리 추가
+    - '$ gradle eclipse' 실행
+    - 이클립스 프로젝트 리프래시
+    - 서버 재시작
+- 
