@@ -4,11 +4,8 @@ tbody = $('tbody'),
 prevPageLi = $('#prevPage'),
 nextPageLi = $('#nextPage'),
 currSpan = $('#currPage > span');
-templateSrc = $('#tr-template').html(); // script 태그에서 템플릿 데이터를 꺼낸다.
-// Handlebars를 통해 템플릿 데이터를 가지고 최종 결과를 생성할 함수를 준비한다.
-trGenerator = Handlebars.compile(templateSrc); 
 
-// JSON 형식의 데이터 목록 가져오기
+//JSON 형식의 데이터 목록 가져오기
 function loadList(pn) {
 
   // Bitcamp.getJSON(url, function(obj) {});
@@ -22,16 +19,18 @@ function loadList(pn) {
 
     // TR 태그 갱신한다.
     tbody.html(''); // 이전에 출력한 내용을 제거한다.
-    
-    // 템플릿 엔진을 실행하여 tr 태그 목록을 생성한다. 그리고 바로 tbody에 붙인다.
-    $(trGenerator(obj)).appendTo(tbody);
-    
-    /*
     for (data of obj.list) {
-      var trHTML = trGenerator(data);
-      $(trHTML).appendTo(tbody);
+      $('<tr>')
+        .append($('<th>').attr('scope', 'row').html(data.no))
+        .append($('<td>').append(
+                  $('<a>').addClass('bit-view-link')
+                    .attr('href', '#')
+                    .attr('data-no', data.no)
+                    .html(data.contents)))
+        .append($('<td>').html(data.createdDate))
+        .append($('<td>').html(data.viewCount))
+        .appendTo(tbody);
     }
-    */
 
     // 현재 페이지 번호를 갱신한다.
     currSpan.html(String(pageNo));
@@ -67,10 +66,10 @@ $('#nextPage > a').click((e) => {
   loadList(pageNo + 1);
 });
 
-// 페이지를 출력한 후 1페이지를 로딩한다.
+//페이지를 출력한 후 1페이지를 로딩한다.
 loadList(1);
 
-// 테이블 목록 가져오기를 완료했으면 제목 a 태그에 클릭 리스너를 등록한다.
+//테이블 목록 가져오기를 완료했으면 제목 a 태그에 클릭 리스너를 등록한다.
 $(document.body).bind('loded-list', () => {
   // 제목을 클릭했을 때 view.html로 전환시키기
   $('.bit-view-link').click((e) => {
